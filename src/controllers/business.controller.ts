@@ -13,6 +13,7 @@ import {
   validatePhoneOtpDetails,
   validateRegister2FA,
   validateResendMailOtp,
+  validateVerifyBvnOtp,
 } from '../validators/business.validator';
 import { IRegisterBusiness } from '../interface/business.interface';
 import {
@@ -296,6 +297,55 @@ export const getAllEmployees = async (
     res
       .status(200)
       .json(constructResponse(200, 'Employees fetched', employees));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getBusinessInformationFromCacNumber = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const cacNumber = req.query.cacNumber;
+    const business = await businessService.getBusinessDataByCac(
+      String(cacNumber),
+    );
+    res.status(200).json(constructResponse(200, 'Business fetched', business));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getBvnInformation = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const bvn = req.query.bvn;
+    const bvnData = await businessService.getBvnDetails(String(bvn));
+    res.status(200).json(constructResponse(200, 'BVN fetched', bvnData));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const verifyBvnOtp = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const body = await validateVerifyBvnOtp.validateAsync(req.body);
+    const bvnData = await businessService.verifyBvnOtp(
+      req.user?.id,
+      body.bvn,
+      body.otp,
+      body.phoneNumber,
+    );
+    res.status(200).json(constructResponse(200, 'BVN verified', bvnData));
   } catch (error) {
     next(error);
   }

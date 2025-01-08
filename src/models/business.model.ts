@@ -35,6 +35,8 @@ class Business extends Model<
   declare password?: string;
   declare passwordReset?: boolean;
   declare registrationNumber?: string;
+  declare businessVerification?: boolean;
+  declare bvn?: string;
   declare createdAt: CreationOptional<Date> | null;
   declare updatedAt: CreationOptional<Date> | null;
 
@@ -146,6 +148,15 @@ Business.init(
     password: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    businessVerification: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    bvn: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     createdAt: {
       type: DataTypes.DATE,

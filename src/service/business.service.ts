@@ -261,18 +261,87 @@ class BusinessService {
       }
     }
   }
-  async updateBusinessDetails(id: string, business: IRegisterBusinessDetails) {
+
+  async getBusinessDataByCac(rcNumber: string) {
     try {
       const dojahResponse = await dojah.kyb.getCac({
-        rcNumber: parseInt(business.registrationNumber),
+        rcNumber: parseInt(rcNumber),
       });
       console.log(dojahResponse.status, dojahResponse.data, 'dojahResponse');
       if (!dojahResponse.data.entity?.company_name) {
         throw new BadRequest('Unable to verify business registration number');
       }
-      // if (business.businessName !== dojahResponse.data.entity?.company_name) {
-      //   throw new BadRequest('Business name does not match CAC record');
-      // }
+      return dojahResponse.data;
+    } catch (error) {
+      if (error instanceof BadRequest) {
+        throw error;
+      } else {
+        throw new Error('Error in getting business data');
+      }
+    }
+  }
+
+  async getBvnDetails(bvn: string) {
+    try {
+      const dojahResponse = await dojah.nigeriaKyc.getBasicBvn1({
+        bvn: parseInt(bvn),
+      });
+      if (!dojahResponse.data.entity?.bvn) {
+        throw new BadRequest('Unable to verify BVN');
+      }
+      const otp = generateRandomNumber(4).toString();
+      await this.otpRepository.deleteOtpByPhone(
+        dojahResponse.data.entity?.mobile!,
+      );
+      await this.otpRepository.createOtp({
+        phone: dojahResponse.data.entity?.mobile,
+        otp,
+        expiry: otpExpiryDate(10),
+      });
+      console.log(otp);
+      // await sendSms(otp, dojahResponse.data.entity?.mobile!);
+      return dojahResponse.data;
+    } catch (error) {
+      if (error instanceof BadRequest) {
+        throw error;
+      } else {
+        throw new Error('Error in getting BVN details');
+      }
+    }
+  }
+
+  async verifyBvnOtp(
+    id: string,
+    bvn: string,
+    otp: string,
+    phoneNumber: string,
+  ) {
+    try {
+      const otpRecord = await this.otpRepository.findOtpByPhone(phoneNumber);
+      if (
+        otpRecord &&
+        otpRecord.otp === otp &&
+        new Date(otpRecord.expiry) >= new Date()
+      ) {
+        await this.otpRepository.deleteOtpByPhone(phoneNumber);
+        await this.businessRepository.updateBusiness(id, {
+          bvn,
+          personalPhoneNumber: phoneNumber,
+        });
+        return;
+      } else {
+        throw new BadRequest('Error verifying BVN OTP');
+      }
+    } catch (error) {
+      if (error instanceof BadRequest) {
+        throw error;
+      } else {
+        throw new Error('Error in verifying BVN OTP');
+      }
+    }
+  }
+  async updateBusinessDetails(id: string, business: IRegisterBusinessDetails) {
+    try {
       const updatedBusiness = await this.businessRepository.updateBusiness(
         id,
         business,
@@ -296,11 +365,11 @@ class BusinessService {
     business: IRegisterBusinessOwnerDetails,
   ) {
     try {
-      const dojahResponse = await dojah.nigeriaKyc.getPhoneNumber({
-        phoneNumber: parseInt(business.personalPhoneNumber),
-      });
+      // const dojahResponse = await dojah.nigeriaKyc.getPhoneNumber({
+      //   phoneNumber: parseInt(business.personalPhoneNumber),
+      // });
       // console.log(dojahResponse.data.entity?.firstName, 'dojahResponse');
-      
+
       const updatedBusiness = await this.businessRepository.updateBusiness(
         id,
         business,

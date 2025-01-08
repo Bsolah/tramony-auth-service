@@ -103,6 +103,15 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      businessVerification: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      bvn: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       createdAt: {
         type: DataTypes.DATE,
         allowNull: false,

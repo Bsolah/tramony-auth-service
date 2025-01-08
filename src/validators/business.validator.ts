@@ -76,6 +76,10 @@ export const validateBusinessDetailsUpdate = Joi.object({
     'string.base': 'Business category must be a string',
     'any.required': 'Business category is required',
   }),
+  businessVerification: Joi.boolean().required().messages({
+    'boolean.base': 'Business verification must be a boolean',
+    'any.required': 'Business verification is required',
+  }),
   subCategory: Joi.string().required().messages({
     'string.base': 'Business sub category must be a string',
     'any.required': 'Business sub category is required',
@@ -98,10 +102,6 @@ export const validateBusinessOwnerDetailsUpdate = Joi.object({
   dateOfBirth: Joi.string().required().messages({
     'string.base': 'Date of birth must be a string',
     'any.required': 'Date of birth is required',
-  }),
-  personalPhoneNumber: Joi.string().required().messages({
-    'string.base': 'Personal phone number must be a string',
-    'any.required': 'Personal phone number is required',
   }),
   homeAddress: Joi.string().required().messages({
     'string.base': 'Home address must be a string',
@@ -147,5 +147,20 @@ export const validateEmployeeRegistration = Joi.object({
     'string.base': 'Email must be a string',
     'string.email': 'Email must be a valid email',
     'any.required': 'Email is required',
+  }),
+});
+
+export const validateVerifyBvnOtp = Joi.object({
+  otp: Joi.string().required().messages({
+    'string.base': 'OTP must be a string',
+    'any.required': 'OTP is required',
+  }),
+  bvn: Joi.string().required().messages({
+    'string.base': 'BVN must be a string',
+    'any.required': 'BVN is required',
+  }),
+  phoneNumber: Joi.string().required().messages({
+    'string.base': 'Phone number must be a string',
+    'any.required': 'Phone number is required',
   }),
 });

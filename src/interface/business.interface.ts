@@ -28,6 +28,7 @@ interface IRegisterBusinessDetails {
   businessName: string;
   registrationNumber: string;
   businessAddress: string;
+  businessVerification: boolean;
   category: string;
   subCategory: string;
   type: string;
@@ -36,7 +37,6 @@ interface IRegisterBusinessDetails {
 
 interface IRegisterBusinessOwnerDetails {
   dateOfBirth: string;
-  personalPhoneNumber: string;
   homeAddress: string;
   firstName: string;
   lastName: string;

@@ -3,6 +3,8 @@ import {
   createEmployee,
   getAllEmployees,
   getBusinessDetails,
+  getBusinessInformationFromCacNumber,
+  getBvnInformation,
   loginBusiness,
   register2FA,
   registerBusiness,
@@ -15,6 +17,7 @@ import {
   verify2FA,
   verify2FAForLogin,
   verifyBusinessEmail,
+  verifyBvnOtp,
   verifyResetPasswordOtp,
 } from '../controllers/business.controller';
 import {
@@ -43,6 +46,13 @@ router.post('/reset/password', requestResetPassword);
 router.post('/reset/password/verify', verifyResetPasswordOtp);
 router.post('/reset/password/update', authenticateUser, resetPassword);
 router.post('/employee', authenticateUser, createEmployee);
-router.get('/employee', authenticateUser, getAllEmployees);  
+router.get('/employee', authenticateUser, getAllEmployees);
+router.get(
+  '/cac',
+  authenticateUserWithout2FACheck,
+  getBusinessInformationFromCacNumber,
+);
+router.get('/bvn', authenticateUserWithout2FACheck, getBvnInformation);
+router.post('/bvn/confirm', authenticateUserWithout2FACheck, verifyBvnOtp);
 
 export default router;
