@@ -15,3 +15,13 @@ export const generateTokenWith2FA = (
     expiresIn: '30d',
   });
 };
+
+export const generateEmployeeToken = (
+  id: string,
+  email: string,
+  employeeId: string,
+) => {
+  return jwt.sign({ id, email, employeeId }, process.env.JWT_SECRET!, {
+    expiresIn: '30d',
+  });
+};

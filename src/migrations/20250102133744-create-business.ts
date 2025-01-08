@@ -49,6 +49,11 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: true,
       },
+
+      registrationNumber: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       homeAddress: {
         type: DataTypes.STRING,
         allowNull: true,

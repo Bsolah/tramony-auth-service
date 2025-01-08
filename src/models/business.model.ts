@@ -6,6 +6,7 @@ import {
   CreationOptional,
 } from 'sequelize';
 import sequelize from '.';
+import Employee from './employee.model';
 
 class Business extends Model<
   InferAttributes<Business>,
@@ -33,11 +34,15 @@ class Business extends Model<
   declare revenue?: string;
   declare password?: string;
   declare passwordReset?: boolean;
+  declare registrationNumber?: string;
   declare createdAt: CreationOptional<Date> | null;
   declare updatedAt: CreationOptional<Date> | null;
 
   toJSON() {
-    const { password, passwordReset, ...values } = this.get() as { password?: string, passwordReset?: boolean };
+    const { password, passwordReset, ...values } = this.get() as {
+      password?: string;
+      passwordReset?: boolean;
+    };
     return values;
   }
 }
@@ -98,6 +103,10 @@ Business.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    registrationNumber: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     homeAddress: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -153,5 +162,10 @@ Business.init(
     tableName: 'businesses',
   },
 );
+
+Business.hasMany(Employee, {
+  foreignKey: 'businessId',
+  as: 'employees',
+});
 
 export default Business;

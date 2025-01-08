@@ -12,13 +12,17 @@ import {
   IRegisterBusinessOwnerDetails,
 } from '../interface/business.interface';
 import sendSms from '../utils/sms';
+import EmployeeRepository from '../repository/employee.repository';
+import { dojah } from '../external/requests';
 
 class BusinessService {
   private otpRepository: OtpRepository;
   private businessRepository: BusinessRepository;
+  private employeeRepository: EmployeeRepository;
   constructor() {
     this.otpRepository = new OtpRepository();
     this.businessRepository = new BusinessRepository();
+    this.employeeRepository = new EmployeeRepository();
   }
   async registerBusiness(email: string, password: string) {
     try {
@@ -259,7 +263,16 @@ class BusinessService {
   }
   async updateBusinessDetails(id: string, business: IRegisterBusinessDetails) {
     try {
-      console.log(business.businessAddress);
+      const dojahResponse = await dojah.kyb.getCac({
+        rcNumber: parseInt(business.registrationNumber),
+      });
+      console.log(dojahResponse.status, dojahResponse.data, 'dojahResponse');
+      if (!dojahResponse.data.entity?.company_name) {
+        throw new BadRequest('Unable to verify business registration number');
+      }
+      // if (business.businessName !== dojahResponse.data.entity?.company_name) {
+      //   throw new BadRequest('Business name does not match CAC record');
+      // }
       const updatedBusiness = await this.businessRepository.updateBusiness(
         id,
         business,
@@ -283,6 +296,11 @@ class BusinessService {
     business: IRegisterBusinessOwnerDetails,
   ) {
     try {
+      const dojahResponse = await dojah.nigeriaKyc.getPhoneNumber({
+        phoneNumber: parseInt(business.personalPhoneNumber),
+      });
+      // console.log(dojahResponse.data.entity?.firstName, 'dojahResponse');
+      
       const updatedBusiness = await this.businessRepository.updateBusiness(
         id,
         business,
@@ -293,6 +311,7 @@ class BusinessService {
         throw new BadRequest('Business not found');
       }
     } catch (error) {
+      console.log(error);
       if (error instanceof BadRequest) {
         throw error;
       } else {
@@ -395,6 +414,46 @@ class BusinessService {
       } else {
         throw new Error('Error in resetting password');
       }
+    }
+  }
+
+  async registerEmployee(email: string, businessId: string) {
+    try {
+      const employee = await this.employeeRepository.findEmployeeByEmail(email);
+      if (employee) {
+        throw new BadRequest('Employee already exists');
+      } else {
+        const passcode = generateRandomNumber(6).toString();
+        const existingPasscode =
+          await this.employeeRepository.findEmployeeByPassCode(passcode);
+        if (existingPasscode) {
+          await this.registerEmployee(email, businessId);
+        }
+        const createdEmployee = await this.employeeRepository.createEmployee({
+          email,
+          passcode,
+          businessId,
+        });
+        // await sendSms(passcode, email);
+        return createdEmployee;
+      }
+    } catch (error) {
+      if (error instanceof BadRequest) {
+        throw error;
+      } else {
+        throw new Error('Error in registering employee');
+      }
+    }
+  }
+
+  async getAllEmployees(businessId: string) {
+    try {
+      const employees =
+        await this.employeeRepository.findEmployeeByBusinessId(businessId);
+      return employees;
+    } catch (error) {
+      console.log(error);
+      throw new Error('Error in getting employees');
     }
   }
 }

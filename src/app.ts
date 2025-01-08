@@ -5,6 +5,7 @@ import config from './config';
 import sequelizeInstance from './models';
 import { errorMiddleware } from './middlewares/errorMiddleware';
 import businessRouter from './routes/business.routes';
+import employeeRouter from './routes/employee.routes';
 import yamljs from 'yamljs';
 import path from 'path';
 import swaggerUi from 'swagger-ui-express';
@@ -13,6 +14,7 @@ declare module 'express-serve-static-core' {
     user: {
       id: string;
       email: string;
+      employeeId?: string;
     };
   }
 }
@@ -28,6 +30,7 @@ app.use(helmet());
 
 // app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(docs));
 app.use('/api/v1/business', businessRouter);
+app.use('/api/v1/employee', employeeRouter);
 
 app.use('*', (_: Request, res: Response, __: NextFunction) => {
   res.status(404).json({ message: 'Not Found' });

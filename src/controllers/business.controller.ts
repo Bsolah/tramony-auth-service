@@ -5,6 +5,7 @@ import {
   validateBusinessDetailsUpdate,
   validateBusinessOwnerDetailsUpdate,
   validateBusinessRegistration,
+  validateEmployeeRegistration,
   validateLoginBusiness,
   validateOtp,
   validateOtpDetails,
@@ -263,6 +264,38 @@ export const resetPassword = async (
     const email = req.user?.email;
     const business = await businessService.resetPassword(email, body.password);
     res.status(200).json(constructResponse(200, 'Password updated', business));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const createEmployee = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const body = await validateEmployeeRegistration.validateAsync(req.body);
+    const employee = await businessService.registerEmployee(
+      body.email,
+      req.user?.id,
+    );
+    res.status(201).json(constructResponse(200, 'Employee created', employee));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllEmployees = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const employees = await businessService.getAllEmployees(req.user?.id);
+    res
+      .status(200)
+      .json(constructResponse(200, 'Employees fetched', employees));
   } catch (error) {
     next(error);
   }

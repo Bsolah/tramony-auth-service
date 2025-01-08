@@ -84,6 +84,10 @@ export const validateBusinessDetailsUpdate = Joi.object({
     'string.base': 'Type must be a string',
     'any.required': 'Type is required',
   }),
+  registrationNumber: Joi.string().required().messages({
+    'string.base': 'Registration number must be a string',
+    'any.required': 'Registration number is required',
+  }),
   revenue: Joi.string().required().messages({
     'string.base': 'Revenue must be a string',
     'any.required': 'Revenue is required',
@@ -135,5 +139,13 @@ export const validateOtp = Joi.object({
   otp: Joi.string().required().messages({
     'string.base': 'OTP must be a string',
     'any.required': 'OTP is required',
+  }),
+});
+
+export const validateEmployeeRegistration = Joi.object({
+  email: Joi.string().email().required().messages({
+    'string.base': 'Email must be a string',
+    'string.email': 'Email must be a valid email',
+    'any.required': 'Email is required',
   }),
 });

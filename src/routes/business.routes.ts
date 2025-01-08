@@ -1,5 +1,7 @@
 import express from 'express';
 import {
+  createEmployee,
+  getAllEmployees,
   getBusinessDetails,
   loginBusiness,
   register2FA,
@@ -40,5 +42,7 @@ router.put('/update/bank', authenticateUser, updateBankAccountDetails);
 router.post('/reset/password', requestResetPassword);
 router.post('/reset/password/verify', verifyResetPasswordOtp);
 router.post('/reset/password/update', authenticateUser, resetPassword);
+router.post('/employee', authenticateUser, createEmployee);
+router.get('/employee', authenticateUser, getAllEmployees);  
 
 export default router;

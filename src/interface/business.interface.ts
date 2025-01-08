@@ -26,6 +26,7 @@ interface IRegisterBusiness {
 
 interface IRegisterBusinessDetails {
   businessName: string;
+  registrationNumber: string;
   businessAddress: string;
   category: string;
   subCategory: string;
