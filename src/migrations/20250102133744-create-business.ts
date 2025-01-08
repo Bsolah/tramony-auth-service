@@ -19,6 +19,15 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
+      twoFactorAuth: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      passcode: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       isEmailVerified: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
@@ -52,6 +61,18 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      personalPhoneNumber: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      firstName: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      lastName: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       bankName: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -67,6 +88,11 @@ module.exports = {
       revenue: {
         type: DataTypes.STRING,
         allowNull: true,
+      },
+      passwordReset: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
       password: {
         type: DataTypes.STRING,

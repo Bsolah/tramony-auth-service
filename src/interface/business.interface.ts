@@ -19,9 +19,37 @@ interface IBusiness {
   updatedAt: string;
 }
 
-interface IRegisterBusiness { 
-    email: string;
-    password: string;
+interface IRegisterBusiness {
+  email: string;
+  password: string;
 }
 
-export { IBusiness, IRegisterBusiness };
+interface IRegisterBusinessDetails {
+  businessName: string;
+  businessAddress: string;
+  category: string;
+  subCategory: string;
+  type: string;
+  revenue: string;
+}
+
+interface IRegisterBusinessOwnerDetails {
+  dateOfBirth: string;
+  personalPhoneNumber: string;
+  homeAddress: string;
+  firstName: string;
+  lastName: string;
+}
+
+interface IRegisterBankAccount {
+  bankName: string;
+  accountNumber: string;
+}
+
+export {
+  IBusiness,
+  IRegisterBusiness,
+  IRegisterBusinessDetails,
+  IRegisterBusinessOwnerDetails,
+  IRegisterBankAccount
+};

@@ -4,9 +4,6 @@ import {
   InferCreationAttributes,
   DataTypes,
   CreationOptional,
-  Association,
-  NonAttribute,
-  HasManyGetAssociationsMixin,
 } from 'sequelize';
 import sequelize from '.';
 
@@ -18,6 +15,8 @@ class Business extends Model<
   declare email: string;
   declare businessName?: string;
   declare isEmailVerified?: boolean;
+  declare twoFactorAuth?: boolean;
+  declare passcode?: string;
   declare type?: string;
   declare category?: string;
   declare subCategory?: string;
@@ -25,16 +24,20 @@ class Business extends Model<
   declare homeAddress?: string;
   declare dateOfBirth?: Date;
   declare phoneNumber?: string;
+  declare personalPhoneNumber?: string;
   declare bankName?: string;
   declare accountNumber?: string;
   declare accountName?: string;
+  declare firstName?: string;
+  declare lastName?: string;
   declare revenue?: string;
   declare password?: string;
+  declare passwordReset?: boolean;
   declare createdAt: CreationOptional<Date> | null;
   declare updatedAt: CreationOptional<Date> | null;
 
   toJSON() {
-    const { password, ...values } = this.get() as { password?: string };
+    const { password, passwordReset, ...values } = this.get() as { password?: string, passwordReset?: boolean };
     return values;
   }
 }
@@ -56,10 +59,28 @@ Business.init(
       allowNull: false,
       unique: true,
     },
+    phoneNumber: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    twoFactorAuth: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
     isEmailVerified: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,
+    },
+    passwordReset: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    passcode: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     type: {
       type: DataTypes.STRING,
@@ -85,7 +106,15 @@ Business.init(
       type: DataTypes.DATE,
       allowNull: true,
     },
-    phoneNumber: {
+    personalPhoneNumber: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    lastName: {
       type: DataTypes.STRING,
       allowNull: true,
     },

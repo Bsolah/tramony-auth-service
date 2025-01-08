@@ -4,12 +4,30 @@ import helmet from 'helmet';
 import config from './config';
 import sequelizeInstance from './models';
 import { errorMiddleware } from './middlewares/errorMiddleware';
+import businessRouter from './routes/business.routes';
+import yamljs from 'yamljs';
+import path from 'path';
+import swaggerUi from 'swagger-ui-express';
+declare module 'express-serve-static-core' {
+  interface Request {
+    user: {
+      id: string;
+      email: string;
+    };
+  }
+}
+
 
 const app = express();
+
+// const docs = yamljs.load(path.join(__dirname, '../src/swaggerDocs.yaml'));
 
 app.use(cors());
 app.use(express.json());
 app.use(helmet());
+
+// app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(docs));
+app.use('/api/v1/business', businessRouter);
 
 app.use('*', (_: Request, res: Response, __: NextFunction) => {
   res.status(404).json({ message: 'Not Found' });
