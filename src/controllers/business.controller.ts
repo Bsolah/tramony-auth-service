@@ -23,6 +23,7 @@ import {
   IValidatePhoneOtp,
 } from '../interface/general.interface';
 import constructResponse from '../utils/constructResponse';
+import sendMail from '../utils/mail';
 
 const businessService = new BusinessService();
 
@@ -163,6 +164,7 @@ export const getBusinessDetails = async (
   try {
     const id = req.user?.id;
     const business = await businessService.getBusinessById(id);
+    await sendMail('sinaayopopoola@gmail.com', 'Business Details', '<h1>Business Details</h1>');
     res
       .status(200)
       .json(constructResponse(200, 'Business details Fetched', business));
