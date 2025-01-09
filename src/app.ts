@@ -22,13 +22,13 @@ declare module 'express-serve-static-core' {
 
 const app = express();
 
-// const docs = yamljs.load(path.join(__dirname, '../src/swaggerDocs.yaml'));
+const docs = yamljs.load(path.join(__dirname, '../src/swaggerDocs.yaml'));
 
 app.use(cors());
 app.use(express.json());
 app.use(helmet());
 
-// app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(docs));
+app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(docs));
 app.use('/api/v1/business', businessRouter);
 app.use('/api/v1/employee', employeeRouter);
 

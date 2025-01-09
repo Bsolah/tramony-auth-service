@@ -267,7 +267,6 @@ class BusinessService {
       const dojahResponse = await dojah.kyb.getCac({
         rcNumber: parseInt(rcNumber),
       });
-      console.log(dojahResponse.status, dojahResponse.data, 'dojahResponse');
       if (!dojahResponse.data.entity?.company_name) {
         throw new BadRequest('Unable to verify business registration number');
       }

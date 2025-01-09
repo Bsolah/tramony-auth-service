@@ -1,0 +1,452 @@
+openapi: 3.0.3
+info:
+  title: Tapp
+  description: Tapp Application
+  version: 1.0.0
+  contact: {}
+servers:
+  - url: 'http://localhost:8080/api/v1'
+paths:
+  /business/register:
+    post:
+      tags:
+        - Business Authentication
+      summary: Register Business
+      description: Register Business
+      operationId: registerBusiness
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: sinaayopopoola@gmail.com
+                password:
+                  type: string
+                  example: Prayer1020!
+            examples:
+              Register Business:
+                value:
+                  email: sinaayopopoola@gmail.com
+                  password: Prayer1020!
+      responses:
+        '200':
+          description: ''
+  /business/verify/email:
+    post:
+      tags:
+        - Business Authentication
+      summary: Verify Business Email
+      description: Verify Business Email
+      operationId: verifyBusinessEmail
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: sinaayopopoola@gmail.com
+                otp:
+                  type: string
+                  example: '8184'
+            examples:
+              Verify Business Email:
+                value:
+                  email: sinaayopopoola@gmail.com
+                  otp: '8184'
+      responses:
+        '200':
+          description: ''
+  /business/register/resend/otp:
+    post:
+      tags:
+        - Business Authentication
+      summary: Resend Email Verification OTP
+      description: Resend Email Verification OTP
+      operationId: resendEmailVerificationOtp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: sinaayopopoola+1@gmail.com
+            examples:
+              Resend Email Verification OTP:
+                value:
+                  email: sinaayopopoola+1@gmail.com
+      responses:
+        '200':
+          description: ''
+  /business/register/2fa:
+    post:
+      tags:
+        - Business Authentication
+      summary: Register Phone For 2FA
+      description: Register Phone For 2FA
+      operationId: registerPhoneFor2fa
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phoneNumber:
+                  type: string
+                  example: '+2348129384063'
+            examples:
+              Register Phone For 2FA:
+                value:
+                  phoneNumber: '+2348129384063'
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /business/verify/2fa:
+    post:
+      tags:
+        - Business Authentication
+      summary: Verify Phone 2FA
+      description: Verify Phone 2FA
+      operationId: verifyPhone2fa
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                otp:
+                  type: string
+                  example: '8427'
+                phoneNumber:
+                  type: string
+                  example: '+2348129384063'
+            examples:
+              Verify Phone 2FA:
+                value:
+                  otp: '8427'
+                  phoneNumber: '+2348129384063'
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /business/login:
+    post:
+      tags:
+        - Business Authentication
+      summary: Login Business
+      description: Login Business
+      operationId: loginBusiness
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: sinaayopopoola@gmail.com
+                password:
+                  type: string
+                  example: Prayer1020!
+            examples:
+              Login Business:
+                value:
+                  email: sinaayopopoola@gmail.com
+                  password: Prayer1020!
+      responses:
+        '200':
+          description: ''
+  /business/login/verify/2fa:
+    post:
+      tags:
+        - Business Authentication
+      summary: Login Business 2FA
+      description: Login Business 2FA
+      operationId: loginBusiness2fa
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                otp:
+                  type: string
+                  example: '5207'
+            examples:
+              Login Business 2FA:
+                value:
+                  otp: '5207'
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /business/me:
+    get:
+      tags:
+        - Business Authentication
+      summary: Get Business Auth Information
+      description: Get Business Auth Information
+      operationId: getBusinessAuthInformation
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /business/update/business:
+    put:
+      tags:
+        - Business Authentication
+      summary: Update Business Details
+      description: Update Business Details
+      operationId: updateBusinessDetails
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                businessAddress:
+                  type: string
+                  example: TEst
+                businessName:
+                  type: string
+                  example: TEst ME
+                businessVerification:
+                  type: boolean
+                  example: true
+                category:
+                  type: string
+                  example: TEst Category
+                registrationNumber:
+                  type: string
+                  example: '14320749'
+                revenue:
+                  type: string
+                  example: 100000 - 200000
+                subCategory:
+                  type: string
+                  example: Test Sub Category
+                type:
+                  type: string
+                  example: Test Type
+            examples:
+              Update Business Details:
+                value:
+                  businessAddress: TEst
+                  businessName: TEst ME
+                  businessVerification: true
+                  category: TEst Category
+                  registrationNumber: '14320749'
+                  revenue: 100000 - 200000
+                  subCategory: Test Sub Category
+                  type: Test Type
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /business/update/owner:
+    put:
+      tags:
+        - Business Authentication
+      summary: Update Business Owner Details
+      description: Update Business Owner Details
+      operationId: updateBusinessOwnerDetails
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dateOfBirth:
+                  type: string
+                  example: 10-10-2003
+                firstName:
+                  type: string
+                  example: Popoola
+                homeAddress:
+                  type: string
+                  example: Test Address
+                lastName:
+                  type: string
+                  example: Sinaayo
+                personalPhoneNumber:
+                  type: string
+                  example: '+2348129384063'
+            examples:
+              Update Business Owner Details:
+                value:
+                  dateOfBirth: 10-10-2003
+                  firstName: Popoola
+                  homeAddress: Test Address
+                  lastName: Sinaayo
+                  personalPhoneNumber: '+2348129384063'
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /business/update/bank:
+    put:
+      tags:
+        - Business Authentication
+      summary: Update Business Bank Details
+      description: Update Business Bank Details
+      operationId: updateBusinessBankDetails
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accountNumber:
+                  type: string
+                  example: '0119247732'
+                bankName:
+                  type: string
+                  example: Union Bank
+            examples:
+              Update Business Bank Details:
+                value:
+                  accountNumber: '0119247732'
+                  bankName: Union Bank
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /business/reset/password:
+    post:
+      tags:
+        - Business Authentication
+      summary: Request Reset Password
+      description: Request Reset Password
+      operationId: requestResetPassword
+      responses:
+        '200':
+          description: ''
+  /business/employee:
+    get:
+      tags:
+        - Business Authentication
+      summary: Get All Employees
+      description: Get All Employees
+      operationId: getAllEmployees
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+    post:
+      tags:
+        - Business Authentication
+      summary: Create Employee
+      description: Create Employee
+      operationId: createEmployee
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /business/cac:
+    get:
+      tags:
+        - Business Authentication
+      summary: Verify Business CAC
+      description: Verify Business CAC
+      operationId: verifyBusinessCac
+      parameters:
+        - name: cacNumber
+          in: query
+          schema:
+            type: string
+            example: '1261103'
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /business/bvn:
+    get:
+      tags:
+        - Business Authentication
+      summary: Verify User BVN
+      description: Verify User BVN
+      operationId: verifyUserBvn
+      parameters:
+        - name: bvn
+          in: query
+          schema:
+            type: string
+            example: '22222222222'
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /employee/login:
+    post:
+      tags:
+        - Employee Authentication
+      summary: Login Employee
+      description: Login Employee
+      operationId: loginEmployee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                passcode:
+                  type: string
+                  example: '446399'
+            examples:
+              Login Employee:
+                value:
+                  passcode: '446399'
+      responses:
+        '200':
+          description: ''
+  /employee/update-passcode:
+    put:
+      tags:
+        - Employee Authentication
+      summary: Update Employee Passcode
+      description: Update Employee Passcode
+      operationId: updateEmployeePasscode
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                passcode:
+                  type: string
+                  example: '500347'
+            examples:
+              Update Employee Passcode:
+                value:
+                  passcode: '500347'
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: Business Authentication
+  - name: Employee Authentication
