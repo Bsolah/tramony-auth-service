@@ -1,27 +1,13 @@
 import jwt from 'jsonwebtoken';
 
-export const generateToken = (id: string, email: string) => {
-  return jwt.sign({ id, email }, process.env.JWT_SECRET!, {
+export const generateToken = (id: string, phone: string) => {
+  return jwt.sign({ id, phone, compleeted: false }, process.env.JWT_SECRET!, {
     expiresIn: '30d',
   });
 };
 
-export const generateTokenWith2FA = (
-  id: string,
-  email: string,
-  twoFA: boolean,
-) => {
-  return jwt.sign({ id, email, twoFA }, process.env.JWT_SECRET!, {
-    expiresIn: '30d',
-  });
-};
-
-export const generateEmployeeToken = (
-  id: string,
-  email: string,
-  employeeId: string,
-) => {
-  return jwt.sign({ id, email, employeeId }, process.env.JWT_SECRET!, {
+export const generateCompletedToken = (id: string, phone: string) => {
+  return jwt.sign({ id, phone, compleeted: true }, process.env.JWT_SECRET!, {
     expiresIn: '30d',
   });
 };
