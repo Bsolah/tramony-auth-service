@@ -1,5 +1,5 @@
-const emailOtpHtml = (otp: string) => { 
-    `<!DOCTYPE html>
+export const emailOtpHtml: (link: string) => string = (link: string) => {
+  return `<!DOCTYPE html>
 <html>
 <head>
     <style>
@@ -31,12 +31,15 @@ const emailOtpHtml = (otp: string) => {
         .content {
             margin: 20px 0;
         }
-        .otp {
-            font-size: 24px;
-            color: #0A2540;
-            font-weight: bold;
+        .button {
+            display: inline-block;
+            background-color: #0A2540;
+            color: #ffffff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
             text-align: center;
-            padding: 10px 0;
         }
         .footer {
             text-align: center;
@@ -45,15 +48,6 @@ const emailOtpHtml = (otp: string) => {
             margin-top: 20px;
             border-top: 1px solid #dddddd;
             padding-top: 10px;
-        }
-        .button {
-            display: inline-block;
-            background-color: #0A2540;
-            color: #ffffff;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
         }
     </style>
 </head>
@@ -64,11 +58,9 @@ const emailOtpHtml = (otp: string) => {
         </div>
         <div class="content">
             <p>Hello,</p>
-            <p>Your one-time password (OTP) is:</p>
-            <div class="otp">${otp}</div>
-            <p>This OTP is valid for the next 10 minutes. Please do not share it with anyone for security reasons.</p>
-            <a href="#" class="button">Sign In</a>
-            <p>If you didn’t request this OTP, please ignore this email or contact our support team immediately.</p>
+            <p>We received a request to verify your email address</p>
+            <a href="${link}" class="button">Verify</a>
+            <p>If you didn’t request this, please ignore this email or contact our support team immediately.</p>
         </div>
         <div class="footer">
             <p>Thank you for choosing Tapp!</p>
@@ -76,6 +68,5 @@ const emailOtpHtml = (otp: string) => {
         </div>
     </div>
 </body>
-</html>
-`;
-}
+</html>`;
+};

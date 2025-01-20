@@ -8,10 +8,12 @@ import generateRandomNumber from '../utils/generateRandomNumber';
 import {
   generateCompletedToken,
   generateEmailVerificationToken,
-  generateToken,
 } from '../utils/generateToken';
+import sendMail from '../utils/mail';
 import { hashPassword } from '../utils/passwordHashing';
 import jwt from 'jsonwebtoken';
+import { emailOtpHtml } from '../views/sendOtpEmail';
+import sendSms from '../utils/sms';
 
 class UserService {
   private userRepository: UserRepository;
@@ -43,6 +45,19 @@ class UserService {
         throw new BadRequest('Phone Number already registered');
       }
       const referralCode = Math.random().toString(36).substring(7);
+      const getUserUnverified =
+        await this.userRepository.getUnverifiedUserByPhoneNumber(phoneNumber);
+      if (getUserUnverified) {
+        const otp = await this.otpRepository.createOtp({
+          phone: phoneNumber,
+          otp: generateRandomNumber(6).toString(),
+          expiry: otpExpiryDate(10),
+        });
+        console.log(phoneNumber);
+        console.log(otp.otp);
+        // await sendSms(otp.otp, phoneNumber);
+        return otp;
+      }
       const user = await this.userRepository.createUser(
         phoneNumber,
         referralCode,
@@ -52,8 +67,9 @@ class UserService {
         otp: generateRandomNumber(6).toString(),
         expiry: otpExpiryDate(10),
       });
-      console.log(otp);
-      return user;
+      await sendSms(phoneNumber, otp.otp);
+      console.log(otp.otp);
+      return otp;
     } catch (error) {
       console.log(error);
       if (error instanceof BadRequest) {
@@ -222,8 +238,14 @@ class UserService {
       }
       const token = generateEmailVerificationToken(id.toString(), user.email!);
       console.log(token);
+      await sendMail(
+        user.email!,
+        'Email Verification',
+        emailOtpHtml(`http://localhost:3000/email/verify/${token}`),
+      );
       return {};
     } catch (error) {
+      console.log(error);
       if (error instanceof BadRequest) {
         throw error;
       } else {

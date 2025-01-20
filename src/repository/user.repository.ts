@@ -9,6 +9,10 @@ class UserRepository {
     return User.findOne({ where: { phoneNumber, verified: true } });
   }
 
+  async getUnverifiedUserByPhoneNumber(phoneNumber: string) {
+    return User.findOne({ where: { phoneNumber, verified: false } });
+  }
+
   async verifyUser(phoneNumber: string) {
     const [affectedRowsCount, [updatedRecord]] = await User.update(
       { verified: true },
