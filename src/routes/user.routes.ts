@@ -3,10 +3,13 @@ import {
   addAddressInformation,
   addBasicInformation,
   addPassword,
+  getDetails,
   getPostCodeDetails,
   getPostCodeId,
+  getVerificationEmail,
   redeemReferralCode,
   registerUser,
+  verifyUserEmail,
   verifyUserPhoneNumber,
 } from '../controllers/user.controller';
 import { authenticateUser } from '../middlewares/authenticationMiddleware';
@@ -25,5 +28,13 @@ router.get(
   authenticateUser,
   getPostCodeDetails,
 );
+router.get(
+  '/email/verification/generate',
+  authenticateUser,
+  getVerificationEmail,
+);
+
+router.get('/email/verify/:token', verifyUserEmail);
+router.get('/me', authenticateUser, getDetails);
 
 export default router;

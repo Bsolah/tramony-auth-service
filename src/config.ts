@@ -11,7 +11,7 @@ const config: () => Iconfig = () => {
   const DB_NAME = process.env.DB_NAME;
   const ADDRESS_IO_KEY = process.env.ADDRESS_IO_KEY;
   const ADDRESS_IO_BASE_URL = process.env.ADDRESS_IO_BASE_URL;
-
+  const JWT_SECRET = process.env.JWT_SECRET;
   if (!PORT) {
     throw new Error('PORT must be provided');
   }
@@ -33,6 +33,9 @@ const config: () => Iconfig = () => {
   if (!ADDRESS_IO_BASE_URL) {
     throw new Error('ADDRESS_IO_BASE_URL must be provided');
   }
+  if (!JWT_SECRET) {
+    throw new Error('JWT_SECRET must be provided');
+  }
   return {
     port: parseInt(PORT),
     dbHost: DB_HOST,
@@ -41,6 +44,7 @@ const config: () => Iconfig = () => {
     dbName: DB_NAME,
     addressIoKey: ADDRESS_IO_KEY,
     addressIoBaseUrl: ADDRESS_IO_BASE_URL,
+    jwtSecret: JWT_SECRET,
   };
 };
 

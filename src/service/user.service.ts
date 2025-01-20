@@ -5,8 +5,13 @@ import OtpRepository from '../repository/otp.repository';
 import UserRepository from '../repository/user.repository';
 import otpExpiryDate from '../utils/generateOtpExpiry';
 import generateRandomNumber from '../utils/generateRandomNumber';
-import { generateCompletedToken, generateToken } from '../utils/generateToken';
+import {
+  generateCompletedToken,
+  generateEmailVerificationToken,
+  generateToken,
+} from '../utils/generateToken';
 import { hashPassword } from '../utils/passwordHashing';
+import jwt from 'jsonwebtoken';
 
 class UserService {
   private userRepository: UserRepository;
@@ -15,6 +20,19 @@ class UserService {
   constructor() {
     this.userRepository = new UserRepository();
     this.otpRepository = new OtpRepository();
+  }
+
+  async getUserDetails(id: string) {
+    try {
+      const user = await this.userRepository.getUserById(Number(id));
+      return user;
+    } catch (error) {
+      if (error instanceof BadRequest) {
+        throw error;
+      } else {
+        throw new BadRequest('Error occured while creating user');
+      }
+    }
   }
 
   async createUser(phoneNumber: string) {
@@ -193,6 +211,50 @@ class UserService {
       throw new BadRequest(
         'Error occured while getting postal code information',
       );
+    }
+  }
+
+  async getEmailVerificationToken(id: number) {
+    try {
+      const user = await this.userRepository.getUserById(id);
+      if (!user) {
+        throw new BadRequest('Invalid User');
+      }
+      const token = generateEmailVerificationToken(id.toString(), user.email!);
+      console.log(token);
+      return {};
+    } catch (error) {
+      if (error instanceof BadRequest) {
+        throw error;
+      } else {
+        throw new BadRequest(
+          'Error occured while generating email verification token',
+        );
+      }
+    }
+  }
+
+  async verifyEmailToken(token: string) {
+    try {
+      const decodedToken = jwt.verify(token, config().jwtSecret) as {
+        id: string;
+        email: string;
+      };
+      const user = await this.userRepository.getUserById(
+        Number(decodedToken.id),
+      );
+      if (user && user.email === decodedToken.email) {
+        await this.userRepository.verifyEmail(Number(decodedToken.id));
+        return {};
+      } else {
+        throw new BadRequest('Error verifying user, please try again');
+      }
+    } catch (error) {
+      if (error instanceof BadRequest) {
+        throw error;
+      } else {
+        throw new BadRequest('Error occured while verifying user');
+      }
     }
   }
 }

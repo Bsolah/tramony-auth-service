@@ -6,6 +6,7 @@ interface Iconfig {
   dbName: string;
   addressIoKey: string;
   addressIoBaseUrl: string;
+  jwtSecret: string;
 }
 
 export default Iconfig;
