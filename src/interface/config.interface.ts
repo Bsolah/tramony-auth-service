@@ -7,6 +7,7 @@ interface Iconfig {
   addressIoKey: string;
   addressIoBaseUrl: string;
   jwtSecret: string;
+  baseUrl: string;
 }
 
 export default Iconfig;

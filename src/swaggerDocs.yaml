@@ -7,90 +7,13 @@ info:
 servers:
   - url: 'http://localhost:8080/api/v1'
 paths:
-  /business/register:
+  /user/register:
     post:
       tags:
-        - Business Authentication
-      summary: Register Business
-      description: Register Business
-      operationId: registerBusiness
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  example: sinaayopopoola@gmail.com
-                password:
-                  type: string
-                  example: Prayer1020!
-            examples:
-              Register Business:
-                value:
-                  email: sinaayopopoola@gmail.com
-                  password: Prayer1020!
-      responses:
-        '200':
-          description: ''
-  /business/verify/email:
-    post:
-      tags:
-        - Business Authentication
-      summary: Verify Business Email
-      description: Verify Business Email
-      operationId: verifyBusinessEmail
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  example: sinaayopopoola@gmail.com
-                otp:
-                  type: string
-                  example: '8184'
-            examples:
-              Verify Business Email:
-                value:
-                  email: sinaayopopoola@gmail.com
-                  otp: '8184'
-      responses:
-        '200':
-          description: ''
-  /business/register/resend/otp:
-    post:
-      tags:
-        - Business Authentication
-      summary: Resend Email Verification OTP
-      description: Resend Email Verification OTP
-      operationId: resendEmailVerificationOtp
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  example: sinaayopopoola+1@gmail.com
-            examples:
-              Resend Email Verification OTP:
-                value:
-                  email: sinaayopopoola+1@gmail.com
-      responses:
-        '200':
-          description: ''
-  /business/register/2fa:
-    post:
-      tags:
-        - Business Authentication
-      summary: Register Phone For 2FA
-      description: Register Phone For 2FA
-      operationId: registerPhoneFor2fa
+        - Authentication
+      summary: Register User
+      description: Register User
+      operationId: registerUser
       requestBody:
         content:
           application/json:
@@ -99,23 +22,21 @@ paths:
               properties:
                 phoneNumber:
                   type: string
-                  example: '+2348129384063'
+                  example: '+2348161628933'
             examples:
-              Register Phone For 2FA:
+              Register User:
                 value:
-                  phoneNumber: '+2348129384063'
+                  phoneNumber: '+2348161628933'
       responses:
         '200':
           description: ''
-      security:
-        - bearerAuth: []
-  /business/verify/2fa:
+  /user/register/verify:
     post:
       tags:
-        - Business Authentication
-      summary: Verify Phone 2FA
-      description: Verify Phone 2FA
-      operationId: verifyPhone2fa
+        - Authentication
+      summary: Verify User
+      description: Verify User
+      operationId: verifyUser
       requestBody:
         content:
           application/json:
@@ -124,144 +45,201 @@ paths:
               properties:
                 otp:
                   type: string
-                  example: '8427'
+                  example: '939060'
                 phoneNumber:
                   type: string
-                  example: '+2348129384063'
+                  example: '2348129384063'
             examples:
-              Verify Phone 2FA:
+              Verify User:
                 value:
-                  otp: '8427'
-                  phoneNumber: '+2348129384063'
+                  otp: '939060'
+                  phoneNumber: '2348129384063'
       responses:
         '200':
-          description: ''
-      security:
-        - bearerAuth: []
-  /business/login:
-    post:
-      tags:
-        - Business Authentication
-      summary: Login Business
-      description: Login Business
-      operationId: loginBusiness
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  example: sinaayopopoola@gmail.com
-                password:
-                  type: string
-                  example: Prayer1020!
-            examples:
-              Login Business:
-                value:
-                  email: sinaayopopoola@gmail.com
-                  password: Prayer1020!
-      responses:
-        '200':
-          description: ''
-  /business/login/verify/2fa:
-    post:
-      tags:
-        - Business Authentication
-      summary: Login Business 2FA
-      description: Login Business 2FA
-      operationId: loginBusiness2fa
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                otp:
-                  type: string
-                  example: '5207'
-            examples:
-              Login Business 2FA:
-                value:
-                  otp: '5207'
-      responses:
-        '200':
-          description: ''
-      security:
-        - bearerAuth: []
-  /business/me:
-    get:
-      tags:
-        - Business Authentication
-      summary: Get Business Auth Information
-      description: Get Business Auth Information
-      operationId: getBusinessAuthInformation
-      responses:
-        '200':
-          description: ''
-      security:
-        - bearerAuth: []
-  /business/update/business:
+          description: Example
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '619'
+            Content-Security-Policy:
+              schema:
+                type: string
+                example: >-
+                  default-src 'self';base-uri 'self';font-src 'self' https:
+                  data:;form-action 'self';frame-ancestors 'self';img-src 'self'
+                  data:;object-src 'none';script-src 'self';script-src-attr
+                  'none';style-src 'self' https:
+                  'unsafe-inline';upgrade-insecure-requests
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Resource-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Date:
+              schema:
+                type: string
+                example: Mon, 20 Jan 2025 09:55:04 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"26b-ssSnav7PnPUtfzJdI1VauU+RF2g"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            Origin-Agent-Cluster:
+              schema:
+                type: string
+                example: '?1'
+            Referrer-Policy:
+              schema:
+                type: string
+                example: no-referrer
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-DNS-Prefetch-Control:
+              schema:
+                type: string
+                example: 'off'
+            X-Download-Options:
+              schema:
+                type: string
+                example: noopen
+            X-Frame-Options:
+              schema:
+                type: string
+                example: SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+              schema:
+                type: string
+                example: none
+            X-XSS-Protection:
+              schema:
+                type: string
+                example: '0'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                        example: >-
+                          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJwaG9uZSI6IjIzNDgxMjkzODQwNjMiLCJjb21wbGVldGVkIjp0cnVlLCJpYXQiOjE3MzczNjY5MDQsImV4cCI6MTczOTk1ODkwNH0.jfiTJKOO00moyyE4DMCYyHnrtKFN6MEL8vtMFeu8GuY
+                      user:
+                        type: object
+                        properties:
+                          addressLine1:
+                            nullable: true
+                            example: null
+                          addressLine2:
+                            nullable: true
+                            example: null
+                          city:
+                            nullable: true
+                            example: null
+                          createdAt:
+                            type: string
+                            example: '2025-01-20T09:53:29.066Z'
+                          dateOfBirth:
+                            nullable: true
+                            example: null
+                          email:
+                            nullable: true
+                            example: null
+                          firstName:
+                            nullable: true
+                            example: null
+                          hasRedeemedReferral:
+                            type: boolean
+                            example: false
+                          id:
+                            type: number
+                            example: 1
+                          isEmailVerified:
+                            type: boolean
+                            example: false
+                          lastName:
+                            nullable: true
+                            example: null
+                          password:
+                            nullable: true
+                            example: null
+                          phoneNumber:
+                            type: string
+                            example: '2348129384063'
+                          postalCode:
+                            nullable: true
+                            example: null
+                          referralCode:
+                            type: string
+                            example: ptboc
+                          updatedAt:
+                            type: string
+                            example: '2025-01-20T09:55:04.553Z'
+                          verified:
+                            type: boolean
+                            example: true
+                  message:
+                    type: string
+                    example: OTP sent
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Example:
+                  value:
+                    data:
+                      token: >-
+                        eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJwaG9uZSI6IjIzNDgxMjkzODQwNjMiLCJjb21wbGVldGVkIjp0cnVlLCJpYXQiOjE3MzczNjY5MDQsImV4cCI6MTczOTk1ODkwNH0.jfiTJKOO00moyyE4DMCYyHnrtKFN6MEL8vtMFeu8GuY
+                      user:
+                        addressLine1: null
+                        addressLine2: null
+                        city: null
+                        createdAt: '2025-01-20T09:53:29.066Z'
+                        dateOfBirth: null
+                        email: null
+                        firstName: null
+                        hasRedeemedReferral: false
+                        id: 1
+                        isEmailVerified: false
+                        lastName: null
+                        password: null
+                        phoneNumber: '2348129384063'
+                        postalCode: null
+                        referralCode: ptboc
+                        updatedAt: '2025-01-20T09:55:04.553Z'
+                        verified: true
+                    message: OTP sent
+                    success: true
+  /user/basic-information:
     put:
       tags:
-        - Business Authentication
-      summary: Update Business Details
-      description: Update Business Details
-      operationId: updateBusinessDetails
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                businessAddress:
-                  type: string
-                  example: TEst
-                businessName:
-                  type: string
-                  example: TEst ME
-                businessVerification:
-                  type: boolean
-                  example: true
-                category:
-                  type: string
-                  example: TEst Category
-                registrationNumber:
-                  type: string
-                  example: '14320749'
-                revenue:
-                  type: string
-                  example: 100000 - 200000
-                subCategory:
-                  type: string
-                  example: Test Sub Category
-                type:
-                  type: string
-                  example: Test Type
-            examples:
-              Update Business Details:
-                value:
-                  businessAddress: TEst
-                  businessName: TEst ME
-                  businessVerification: true
-                  category: TEst Category
-                  registrationNumber: '14320749'
-                  revenue: 100000 - 200000
-                  subCategory: Test Sub Category
-                  type: Test Type
-      responses:
-        '200':
-          description: ''
-      security:
-        - bearerAuth: []
-  /business/update/owner:
-    put:
-      tags:
-        - Business Authentication
-      summary: Update Business Owner Details
-      description: Update Business Owner Details
-      operationId: updateBusinessOwnerDetails
+        - Authentication
+      summary: Add Basic Information
+      description: Add Basic Information
+      operationId: addBasicInformation
       requestBody:
         content:
           application/json:
@@ -270,176 +248,1566 @@ paths:
               properties:
                 dateOfBirth:
                   type: string
-                  example: 10-10-2003
+                  example: 10-03-2003
+                email:
+                  type: string
+                  example: sinaayopopoola@gmail.com
                 firstName:
                   type: string
                   example: Popoola
-                homeAddress:
-                  type: string
-                  example: Test Address
                 lastName:
                   type: string
                   example: Sinaayo
-                personalPhoneNumber:
-                  type: string
-                  example: '+2348129384063'
             examples:
-              Update Business Owner Details:
+              Add Basic Information:
                 value:
-                  dateOfBirth: 10-10-2003
+                  dateOfBirth: 10-03-2003
+                  email: sinaayopopoola@gmail.com
                   firstName: Popoola
-                  homeAddress: Test Address
                   lastName: Sinaayo
-                  personalPhoneNumber: '+2348129384063'
       responses:
         '200':
-          description: ''
+          description: Example
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '458'
+            Content-Security-Policy:
+              schema:
+                type: string
+                example: >-
+                  default-src 'self';base-uri 'self';font-src 'self' https:
+                  data:;form-action 'self';frame-ancestors 'self';img-src 'self'
+                  data:;object-src 'none';script-src 'self';script-src-attr
+                  'none';style-src 'self' https:
+                  'unsafe-inline';upgrade-insecure-requests
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Resource-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Date:
+              schema:
+                type: string
+                example: Mon, 20 Jan 2025 09:57:27 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"1ca-9pUrJvxcvmEPcQyHvilFhfOZFXc"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            Origin-Agent-Cluster:
+              schema:
+                type: string
+                example: '?1'
+            Referrer-Policy:
+              schema:
+                type: string
+                example: no-referrer
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-DNS-Prefetch-Control:
+              schema:
+                type: string
+                example: 'off'
+            X-Download-Options:
+              schema:
+                type: string
+                example: noopen
+            X-Frame-Options:
+              schema:
+                type: string
+                example: SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+              schema:
+                type: string
+                example: none
+            X-XSS-Protection:
+              schema:
+                type: string
+                example: '0'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      addressLine1:
+                        nullable: true
+                        example: null
+                      addressLine2:
+                        nullable: true
+                        example: null
+                      city:
+                        nullable: true
+                        example: null
+                      createdAt:
+                        type: string
+                        example: '2025-01-20T09:53:29.066Z'
+                      dateOfBirth:
+                        type: string
+                        example: 10-03-2003
+                      email:
+                        type: string
+                        example: sinaayopopoola@gmail.com
+                      firstName:
+                        type: string
+                        example: Popoola
+                      hasRedeemedReferral:
+                        type: boolean
+                        example: false
+                      id:
+                        type: number
+                        example: 1
+                      isEmailVerified:
+                        type: boolean
+                        example: false
+                      lastName:
+                        type: string
+                        example: Sinaayo
+                      password:
+                        nullable: true
+                        example: null
+                      phoneNumber:
+                        type: string
+                        example: '2348129384063'
+                      postalCode:
+                        nullable: true
+                        example: null
+                      referralCode:
+                        type: string
+                        example: ptboc
+                      updatedAt:
+                        type: string
+                        example: '2025-01-20T09:57:27.692Z'
+                      verified:
+                        type: boolean
+                        example: true
+                  message:
+                    type: string
+                    example: Basic information added
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Example:
+                  value:
+                    data:
+                      addressLine1: null
+                      addressLine2: null
+                      city: null
+                      createdAt: '2025-01-20T09:53:29.066Z'
+                      dateOfBirth: 10-03-2003
+                      email: sinaayopopoola@gmail.com
+                      firstName: Popoola
+                      hasRedeemedReferral: false
+                      id: 1
+                      isEmailVerified: false
+                      lastName: Sinaayo
+                      password: null
+                      phoneNumber: '2348129384063'
+                      postalCode: null
+                      referralCode: ptboc
+                      updatedAt: '2025-01-20T09:57:27.692Z'
+                      verified: true
+                    message: Basic information added
+                    success: true
       security:
         - bearerAuth: []
-  /business/update/bank:
+  /user/address-information:
     put:
       tags:
-        - Business Authentication
-      summary: Update Business Bank Details
-      description: Update Business Bank Details
-      operationId: updateBusinessBankDetails
+        - Authentication
+      summary: Add Address Information
+      description: Add Address Information
+      operationId: addAddressInformation
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                accountNumber:
+                addressLine1:
                   type: string
-                  example: '0119247732'
-                bankName:
+                  example: Birminham
+                addressLine2:
                   type: string
-                  example: Union Bank
+                  example: ''
+                city:
+                  type: string
+                  example: Birminham
+                postalCode:
+                  type: string
+                  example: PO1 AA3
             examples:
-              Update Business Bank Details:
+              Add Address Information:
                 value:
-                  accountNumber: '0119247732'
-                  bankName: Union Bank
+                  addressLine1: Birminham
+                  addressLine2: ''
+                  city: Birminham
+                  postalCode: PO1 AA3
       responses:
         '200':
-          description: ''
+          description: Example
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '477'
+            Content-Security-Policy:
+              schema:
+                type: string
+                example: >-
+                  default-src 'self';base-uri 'self';font-src 'self' https:
+                  data:;form-action 'self';frame-ancestors 'self';img-src 'self'
+                  data:;object-src 'none';script-src 'self';script-src-attr
+                  'none';style-src 'self' https:
+                  'unsafe-inline';upgrade-insecure-requests
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Resource-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Date:
+              schema:
+                type: string
+                example: Mon, 20 Jan 2025 09:59:44 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"1dd-1KPSnglax8hHdiN0Pv/NCwycTmg"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            Origin-Agent-Cluster:
+              schema:
+                type: string
+                example: '?1'
+            Referrer-Policy:
+              schema:
+                type: string
+                example: no-referrer
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-DNS-Prefetch-Control:
+              schema:
+                type: string
+                example: 'off'
+            X-Download-Options:
+              schema:
+                type: string
+                example: noopen
+            X-Frame-Options:
+              schema:
+                type: string
+                example: SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+              schema:
+                type: string
+                example: none
+            X-XSS-Protection:
+              schema:
+                type: string
+                example: '0'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      addressLine1:
+                        type: string
+                        example: Birminham
+                      addressLine2:
+                        type: string
+                        example: ''
+                      city:
+                        type: string
+                        example: Birminham
+                      createdAt:
+                        type: string
+                        example: '2025-01-20T09:53:29.066Z'
+                      dateOfBirth:
+                        type: string
+                        example: 10-03-2003
+                      email:
+                        type: string
+                        example: sinaayopopoola@gmail.com
+                      firstName:
+                        type: string
+                        example: Popoola
+                      hasRedeemedReferral:
+                        type: boolean
+                        example: false
+                      id:
+                        type: number
+                        example: 1
+                      isEmailVerified:
+                        type: boolean
+                        example: false
+                      lastName:
+                        type: string
+                        example: Sinaayo
+                      password:
+                        nullable: true
+                        example: null
+                      phoneNumber:
+                        type: string
+                        example: '2348129384063'
+                      postalCode:
+                        type: string
+                        example: PO1 AA3
+                      referralCode:
+                        type: string
+                        example: ptboc
+                      updatedAt:
+                        type: string
+                        example: '2025-01-20T09:59:44.267Z'
+                      verified:
+                        type: boolean
+                        example: true
+                  message:
+                    type: string
+                    example: Address information added
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Example:
+                  value:
+                    data:
+                      addressLine1: Birminham
+                      addressLine2: ''
+                      city: Birminham
+                      createdAt: '2025-01-20T09:53:29.066Z'
+                      dateOfBirth: 10-03-2003
+                      email: sinaayopopoola@gmail.com
+                      firstName: Popoola
+                      hasRedeemedReferral: false
+                      id: 1
+                      isEmailVerified: false
+                      lastName: Sinaayo
+                      password: null
+                      phoneNumber: '2348129384063'
+                      postalCode: PO1 AA3
+                      referralCode: ptboc
+                      updatedAt: '2025-01-20T09:59:44.267Z'
+                      verified: true
+                    message: Address information added
+                    success: true
       security:
         - bearerAuth: []
-  /business/reset/password:
-    post:
-      tags:
-        - Business Authentication
-      summary: Request Reset Password
-      description: Request Reset Password
-      operationId: requestResetPassword
-      responses:
-        '200':
-          description: ''
-  /business/employee:
-    get:
-      tags:
-        - Business Authentication
-      summary: Get All Employees
-      description: Get All Employees
-      operationId: getAllEmployees
-      responses:
-        '200':
-          description: ''
-      security:
-        - bearerAuth: []
-    post:
-      tags:
-        - Business Authentication
-      summary: Create Employee
-      description: Create Employee
-      operationId: createEmployee
-      responses:
-        '200':
-          description: ''
-      security:
-        - bearerAuth: []
-  /business/cac:
-    get:
-      tags:
-        - Business Authentication
-      summary: Verify Business CAC
-      description: Verify Business CAC
-      operationId: verifyBusinessCac
-      parameters:
-        - name: cacNumber
-          in: query
-          schema:
-            type: string
-            example: '1261103'
-      responses:
-        '200':
-          description: ''
-      security:
-        - bearerAuth: []
-  /business/bvn:
-    get:
-      tags:
-        - Business Authentication
-      summary: Verify User BVN
-      description: Verify User BVN
-      operationId: verifyUserBvn
-      parameters:
-        - name: bvn
-          in: query
-          schema:
-            type: string
-            example: '22222222222'
-      responses:
-        '200':
-          description: ''
-      security:
-        - bearerAuth: []
-  /employee/login:
-    post:
-      tags:
-        - Employee Authentication
-      summary: Login Employee
-      description: Login Employee
-      operationId: loginEmployee
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                passcode:
-                  type: string
-                  example: '446399'
-            examples:
-              Login Employee:
-                value:
-                  passcode: '446399'
-      responses:
-        '200':
-          description: ''
-  /employee/update-passcode:
+  /user/password:
     put:
       tags:
-        - Employee Authentication
-      summary: Update Employee Passcode
-      description: Update Employee Passcode
-      operationId: updateEmployeePasscode
+        - Authentication
+      summary: Add Password
+      description: Add Password
+      operationId: addPassword
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                passcode:
+                password:
                   type: string
-                  example: '500347'
+                  example: Prayer1020!
             examples:
-              Update Employee Passcode:
+              Add Password:
                 value:
-                  passcode: '500347'
+                  password: Prayer1020!
       responses:
         '200':
-          description: ''
+          description: Example
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '524'
+            Content-Security-Policy:
+              schema:
+                type: string
+                example: >-
+                  default-src 'self';base-uri 'self';font-src 'self' https:
+                  data:;form-action 'self';frame-ancestors 'self';img-src 'self'
+                  data:;object-src 'none';script-src 'self';script-src-attr
+                  'none';style-src 'self' https:
+                  'unsafe-inline';upgrade-insecure-requests
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Resource-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Date:
+              schema:
+                type: string
+                example: Mon, 20 Jan 2025 10:01:09 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"20c-Im3IJK91WpaX+x5IfFuCzeOSAno"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            Origin-Agent-Cluster:
+              schema:
+                type: string
+                example: '?1'
+            Referrer-Policy:
+              schema:
+                type: string
+                example: no-referrer
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-DNS-Prefetch-Control:
+              schema:
+                type: string
+                example: 'off'
+            X-Download-Options:
+              schema:
+                type: string
+                example: noopen
+            X-Frame-Options:
+              schema:
+                type: string
+                example: SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+              schema:
+                type: string
+                example: none
+            X-XSS-Protection:
+              schema:
+                type: string
+                example: '0'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      addressLine1:
+                        type: string
+                        example: Birminham
+                      addressLine2:
+                        type: string
+                        example: ''
+                      city:
+                        type: string
+                        example: Birminham
+                      createdAt:
+                        type: string
+                        example: '2025-01-20T09:53:29.066Z'
+                      dateOfBirth:
+                        type: string
+                        example: 10-03-2003
+                      email:
+                        type: string
+                        example: sinaayopopoola@gmail.com
+                      firstName:
+                        type: string
+                        example: Popoola
+                      hasRedeemedReferral:
+                        type: boolean
+                        example: false
+                      id:
+                        type: number
+                        example: 1
+                      isEmailVerified:
+                        type: boolean
+                        example: false
+                      lastName:
+                        type: string
+                        example: Sinaayo
+                      password:
+                        type: string
+                        example: >-
+                          $2b$10$9bHSQ4wUT3kM4Xw6WQsKauqzjCLGG8P1UohaVE9rbhj1xZNPz.e7S
+                      phoneNumber:
+                        type: string
+                        example: '2348129384063'
+                      postalCode:
+                        type: string
+                        example: PO1 AA3
+                      referralCode:
+                        type: string
+                        example: ptboc
+                      updatedAt:
+                        type: string
+                        example: '2025-01-20T10:01:09.156Z'
+                      verified:
+                        type: boolean
+                        example: true
+                  message:
+                    type: string
+                    example: Password added
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Example:
+                  value:
+                    data:
+                      addressLine1: Birminham
+                      addressLine2: ''
+                      city: Birminham
+                      createdAt: '2025-01-20T09:53:29.066Z'
+                      dateOfBirth: 10-03-2003
+                      email: sinaayopopoola@gmail.com
+                      firstName: Popoola
+                      hasRedeemedReferral: false
+                      id: 1
+                      isEmailVerified: false
+                      lastName: Sinaayo
+                      password: >-
+                        $2b$10$9bHSQ4wUT3kM4Xw6WQsKauqzjCLGG8P1UohaVE9rbhj1xZNPz.e7S
+                      phoneNumber: '2348129384063'
+                      postalCode: PO1 AA3
+                      referralCode: ptboc
+                      updatedAt: '2025-01-20T10:01:09.156Z'
+                      verified: true
+                    message: Password added
+                    success: true
+      security:
+        - bearerAuth: []
+  /user/referral:
+    post:
+      tags:
+        - Authentication
+      summary: Add Password
+      description: Add Password
+      operationId: addPassword1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                referralCode:
+                  type: string
+                  example: ptboc
+            examples:
+              Add Password:
+                value:
+                  referralCode: ptboc
+      responses:
+        '200':
+          description: Example
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '51'
+            Content-Security-Policy:
+              schema:
+                type: string
+                example: >-
+                  default-src 'self';base-uri 'self';font-src 'self' https:
+                  data:;form-action 'self';frame-ancestors 'self';img-src 'self'
+                  data:;object-src 'none';script-src 'self';script-src-attr
+                  'none';style-src 'self' https:
+                  'unsafe-inline';upgrade-insecure-requests
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Resource-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Date:
+              schema:
+                type: string
+                example: Mon, 20 Jan 2025 10:02:06 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"33-brzz3iWdAZD5XFw1eZn2gklyBIk"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            Origin-Agent-Cluster:
+              schema:
+                type: string
+                example: '?1'
+            Referrer-Policy:
+              schema:
+                type: string
+                example: no-referrer
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-DNS-Prefetch-Control:
+              schema:
+                type: string
+                example: 'off'
+            X-Download-Options:
+              schema:
+                type: string
+                example: noopen
+            X-Frame-Options:
+              schema:
+                type: string
+                example: SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+              schema:
+                type: string
+                example: none
+            X-XSS-Protection:
+              schema:
+                type: string
+                example: '0'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Referral code redeemed
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Example:
+                  value:
+                    message: Referral code redeemed
+                    success: true
+      security:
+        - bearerAuth: []
+  /user/postcode/{postcode}:
+    get:
+      tags:
+        - Authentication
+      summary: Get Post Code ID
+      description: Get Post Code ID
+      operationId: getPostCodeId
+      responses:
+        '200':
+          description: Example
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '1926'
+            Content-Security-Policy:
+              schema:
+                type: string
+                example: >-
+                  default-src 'self';base-uri 'self';font-src 'self' https:
+                  data:;form-action 'self';frame-ancestors 'self';img-src 'self'
+                  data:;object-src 'none';script-src 'self';script-src-attr
+                  'none';style-src 'self' https:
+                  'unsafe-inline';upgrade-insecure-requests
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Resource-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Date:
+              schema:
+                type: string
+                example: Mon, 20 Jan 2025 10:19:59 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"786-3FQeTIdC9Byn+KPx9pxYm2XiUQ0"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            Origin-Agent-Cluster:
+              schema:
+                type: string
+                example: '?1'
+            Referrer-Policy:
+              schema:
+                type: string
+                example: no-referrer
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-DNS-Prefetch-Control:
+              schema:
+                type: string
+                example: 'off'
+            X-Download-Options:
+              schema:
+                type: string
+                example: noopen
+            X-Frame-Options:
+              schema:
+                type: string
+                example: SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+              schema:
+                type: string
+                example: none
+            X-XSS-Protection:
+              schema:
+                type: string
+                example: '0'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      suggestions:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            address:
+                              type: string
+                              example: >-
+                                Ashleigh's Palace, London, Greater London, SW1A
+                                1AA
+                            id:
+                              type: string
+                              example: >-
+                                YTk1MWM1YjQzMGFlYzNhIDEwNjc3MzY1MDI0IDBjMWE1NjNkNWJhMzVjNQ==
+                            url:
+                              type: string
+                              example: >-
+                                /get/YTk1MWM1YjQzMGFlYzNhIDEwNjc3MzY1MDI0IDBjMWE1NjNkNWJhMzVjNQ==
+                        example:
+                          - address: >-
+                              Ashleigh's Palace, London, Greater London, SW1A
+                              1AA
+                            id: >-
+                              YTk1MWM1YjQzMGFlYzNhIDEwNjc3MzY1MDI0IDBjMWE1NjNkNWJhMzVjNQ==
+                            url: >-
+                              /get/YTk1MWM1YjQzMGFlYzNhIDEwNjc3MzY1MDI0IDBjMWE1NjNkNWJhMzVjNQ==
+                          - address: >-
+                              Buckingham Palace Garden, Constitution Hill,
+                              London, Greater London, SW1A 1AA
+                            id: >-
+                              MmZmODkxMTRkZjg0MjY1IDQzMDU3MzMwNDYgMGMxYTU2M2Q1YmEzNWM1
+                            url: >-
+                              /get/MmZmODkxMTRkZjg0MjY1IDQzMDU3MzMwNDYgMGMxYTU2M2Q1YmEzNWM1
+                          - address: Buckingham Palace, London, SW1A 1AA
+                            id: >-
+                              Njg3MjNiODY5ODViN2JjIDEzNTU2MDIxIDBjMWE1NjNkNWJhMzVjNQ==
+                            url: >-
+                              /get/Njg3MjNiODY5ODViN2JjIDEzNTU2MDIxIDBjMWE1NjNkNWJhMzVjNQ==
+                          - address: Colicci /Ecsi Ltd, The Mall, London, SW1A 1AA
+                            id: >-
+                              ZDIxMjkxZGJhMDQ3ODRmIDIzNDI5ODA3NjggMGMxYTU2M2Q1YmEzNWM1
+                            url: >-
+                              /get/ZDIxMjkxZGJhMDQ3ODRmIDIzNDI5ODA3NjggMGMxYTU2M2Q1YmEzNWM1
+                          - address: >-
+                              Comedy Knights, Leicester Square, London, Greater
+                              London, SW1A 1AA
+                            id: >-
+                              ZTVjNTBkZGFjMmFkNDRjIDUxMDgyMjQ0IDBjMWE1NjNkNWJhMzVjNQ==
+                            url: >-
+                              /get/ZTVjNTBkZGFjMmFkNDRjIDUxMDgyMjQ0IDBjMWE1NjNkNWJhMzVjNQ==
+                          - address: Green Park, London, Greater London, SW1A 1AA
+                            id: >-
+                              NTBhZjJmMTAwMWFjNGNmIDE1MDE5NjgzNTMgMGMxYTU2M2Q1YmEzNWM1
+                            url: >-
+                              /get/NTBhZjJmMTAwMWFjNGNmIDE1MDE5NjgzNTMgMGMxYTU2M2Q1YmEzNWM1
+                          - address: >-
+                              Pitch@Palace Global Ltd, Buckingham Palace,
+                              London, SW1A 1AA
+                            id: >-
+                              YTU2ZTA1YTQyMGNhODc3IDIzNDEzOTMyODUgMGMxYTU2M2Q1YmEzNWM1
+                            url: >-
+                              /get/YTU2ZTA1YTQyMGNhODc3IDIzNDEzOTMyODUgMGMxYTU2M2Q1YmEzNWM1
+                          - address: >-
+                              The Queen's Gallery, Buckingham Palace, London,
+                              Greater London, SW1A 1AA
+                            id: >-
+                              ZjhjYjllZjVjNTVmZjQ5IDIzNDgwMjEyMjkgMGMxYTU2M2Q1YmEzNWM1
+                            url: >-
+                              /get/ZjhjYjllZjVjNTVmZjQ5IDIzNDgwMjEyMjkgMGMxYTU2M2Q1YmEzNWM1
+                          - address: The State Rooms, London, Greater London, SW1A 1AA
+                            id: >-
+                              OWRmMDdlZTc4ZThmNzlmIDIzNDgwMjEyMzAgMGMxYTU2M2Q1YmEzNWM1
+                            url: >-
+                              /get/OWRmMDdlZTc4ZThmNzlmIDIzNDgwMjEyMzAgMGMxYTU2M2Q1YmEzNWM1
+                  message:
+                    type: string
+                    example: Postal code id retrieved
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Example:
+                  value:
+                    data:
+                      suggestions:
+                        - address: Ashleigh's Palace, London, Greater London, SW1A 1AA
+                          id: >-
+                            YTk1MWM1YjQzMGFlYzNhIDEwNjc3MzY1MDI0IDBjMWE1NjNkNWJhMzVjNQ==
+                          url: >-
+                            /get/YTk1MWM1YjQzMGFlYzNhIDEwNjc3MzY1MDI0IDBjMWE1NjNkNWJhMzVjNQ==
+                        - address: >-
+                            Buckingham Palace Garden, Constitution Hill, London,
+                            Greater London, SW1A 1AA
+                          id: >-
+                            MmZmODkxMTRkZjg0MjY1IDQzMDU3MzMwNDYgMGMxYTU2M2Q1YmEzNWM1
+                          url: >-
+                            /get/MmZmODkxMTRkZjg0MjY1IDQzMDU3MzMwNDYgMGMxYTU2M2Q1YmEzNWM1
+                        - address: Buckingham Palace, London, SW1A 1AA
+                          id: >-
+                            Njg3MjNiODY5ODViN2JjIDEzNTU2MDIxIDBjMWE1NjNkNWJhMzVjNQ==
+                          url: >-
+                            /get/Njg3MjNiODY5ODViN2JjIDEzNTU2MDIxIDBjMWE1NjNkNWJhMzVjNQ==
+                        - address: Colicci /Ecsi Ltd, The Mall, London, SW1A 1AA
+                          id: >-
+                            ZDIxMjkxZGJhMDQ3ODRmIDIzNDI5ODA3NjggMGMxYTU2M2Q1YmEzNWM1
+                          url: >-
+                            /get/ZDIxMjkxZGJhMDQ3ODRmIDIzNDI5ODA3NjggMGMxYTU2M2Q1YmEzNWM1
+                        - address: >-
+                            Comedy Knights, Leicester Square, London, Greater
+                            London, SW1A 1AA
+                          id: >-
+                            ZTVjNTBkZGFjMmFkNDRjIDUxMDgyMjQ0IDBjMWE1NjNkNWJhMzVjNQ==
+                          url: >-
+                            /get/ZTVjNTBkZGFjMmFkNDRjIDUxMDgyMjQ0IDBjMWE1NjNkNWJhMzVjNQ==
+                        - address: Green Park, London, Greater London, SW1A 1AA
+                          id: >-
+                            NTBhZjJmMTAwMWFjNGNmIDE1MDE5NjgzNTMgMGMxYTU2M2Q1YmEzNWM1
+                          url: >-
+                            /get/NTBhZjJmMTAwMWFjNGNmIDE1MDE5NjgzNTMgMGMxYTU2M2Q1YmEzNWM1
+                        - address: >-
+                            Pitch@Palace Global Ltd, Buckingham Palace, London,
+                            SW1A 1AA
+                          id: >-
+                            YTU2ZTA1YTQyMGNhODc3IDIzNDEzOTMyODUgMGMxYTU2M2Q1YmEzNWM1
+                          url: >-
+                            /get/YTU2ZTA1YTQyMGNhODc3IDIzNDEzOTMyODUgMGMxYTU2M2Q1YmEzNWM1
+                        - address: >-
+                            The Queen's Gallery, Buckingham Palace, London,
+                            Greater London, SW1A 1AA
+                          id: >-
+                            ZjhjYjllZjVjNTVmZjQ5IDIzNDgwMjEyMjkgMGMxYTU2M2Q1YmEzNWM1
+                          url: >-
+                            /get/ZjhjYjllZjVjNTVmZjQ5IDIzNDgwMjEyMjkgMGMxYTU2M2Q1YmEzNWM1
+                        - address: The State Rooms, London, Greater London, SW1A 1AA
+                          id: >-
+                            OWRmMDdlZTc4ZThmNzlmIDIzNDgwMjEyMzAgMGMxYTU2M2Q1YmEzNWM1
+                          url: >-
+                            /get/OWRmMDdlZTc4ZThmNzlmIDIzNDgwMjEyMzAgMGMxYTU2M2Q1YmEzNWM1
+                    message: Postal code id retrieved
+                    success: true
+      security:
+        - bearerAuth: []
+    parameters:
+      - name: postcode
+        in: path
+        required: true
+        schema:
+          type: string
+          example: SW1A 1AA
+  /user/details/postcode/{postCodeId}:
+    get:
+      tags:
+        - Authentication
+      summary: Get Post Code Details
+      description: Get Post Code Details
+      operationId: getPostCodeDetails
+      responses:
+        '200':
+          description: Example
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '503'
+            Content-Security-Policy:
+              schema:
+                type: string
+                example: >-
+                  default-src 'self';base-uri 'self';font-src 'self' https:
+                  data:;form-action 'self';frame-ancestors 'self';img-src 'self'
+                  data:;object-src 'none';script-src 'self';script-src-attr
+                  'none';style-src 'self' https:
+                  'unsafe-inline';upgrade-insecure-requests
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Resource-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Date:
+              schema:
+                type: string
+                example: Mon, 20 Jan 2025 10:21:36 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"1f7-/jcyKf4RU6PWuw1AlX70aTlOkgQ"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            Origin-Agent-Cluster:
+              schema:
+                type: string
+                example: '?1'
+            Referrer-Policy:
+              schema:
+                type: string
+                example: no-referrer
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-DNS-Prefetch-Control:
+              schema:
+                type: string
+                example: 'off'
+            X-Download-Options:
+              schema:
+                type: string
+                example: noopen
+            X-Frame-Options:
+              schema:
+                type: string
+                example: SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+              schema:
+                type: string
+                example: none
+            X-XSS-Protection:
+              schema:
+                type: string
+                example: '0'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      building_name:
+                        type: string
+                        example: ''
+                      building_number:
+                        type: string
+                        example: ''
+                      country:
+                        type: string
+                        example: England
+                      county:
+                        type: string
+                        example: Greater London
+                      district:
+                        type: string
+                        example: Westminster
+                      formatted_address:
+                        type: array
+                        items:
+                          type: string
+                          example: Ashleigh's Palace
+                        example:
+                          - Ashleigh's Palace
+                          - ''
+                          - ''
+                          - London
+                          - Greater London
+                      latitude:
+                        type: number
+                        example: 51.5013
+                      line_1:
+                        type: string
+                        example: Ashleigh's Palace
+                      line_2:
+                        type: string
+                        example: ''
+                      line_3:
+                        type: string
+                        example: ''
+                      line_4:
+                        type: string
+                        example: ''
+                      locality:
+                        type: string
+                        example: ''
+                      longitude:
+                        type: number
+                        example: -0.142908
+                      postcode:
+                        type: string
+                        example: SW1A 1AA
+                      residential:
+                        type: boolean
+                        example: true
+                      sub_building_name:
+                        type: string
+                        example: ''
+                      sub_building_number:
+                        type: string
+                        example: ''
+                      thoroughfare:
+                        type: string
+                        example: ''
+                      town_or_city:
+                        type: string
+                        example: London
+                  message:
+                    type: string
+                    example: Postal code details retrieved
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Example:
+                  value:
+                    data:
+                      building_name: ''
+                      building_number: ''
+                      country: England
+                      county: Greater London
+                      district: Westminster
+                      formatted_address:
+                        - Ashleigh's Palace
+                        - ''
+                        - ''
+                        - London
+                        - Greater London
+                      latitude: 51.5013
+                      line_1: Ashleigh's Palace
+                      line_2: ''
+                      line_3: ''
+                      line_4: ''
+                      locality: ''
+                      longitude: -0.142908
+                      postcode: SW1A 1AA
+                      residential: true
+                      sub_building_name: ''
+                      sub_building_number: ''
+                      thoroughfare: ''
+                      town_or_city: London
+                    message: Postal code details retrieved
+                    success: true
+      security:
+        - bearerAuth: []
+    parameters:
+      - name: postCodeId
+        in: path
+        required: true
+        schema:
+          type: string
+          example: YTk1MWM1YjQzMGFlYzNhIDEwNjc3MzY1MDI0IDBjMWE1NjNkNWJhMzVjNQ==
+  /user/email/verification/generate:
+    get:
+      tags:
+        - Authentication
+      summary: Get Email Verification
+      description: Get Email Verification
+      operationId: getEmailVerification
+      responses:
+        '200':
+          description: New Request
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '49'
+            Content-Security-Policy:
+              schema:
+                type: string
+                example: >-
+                  default-src 'self';base-uri 'self';font-src 'self' https:
+                  data:;form-action 'self';frame-ancestors 'self';img-src 'self'
+                  data:;object-src 'none';script-src 'self';script-src-attr
+                  'none';style-src 'self' https:
+                  'unsafe-inline';upgrade-insecure-requests
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Resource-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Date:
+              schema:
+                type: string
+                example: Mon, 20 Jan 2025 11:07:17 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"31-iAJ/fsDWYITxZZEM+zWltOfXMeE"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            Origin-Agent-Cluster:
+              schema:
+                type: string
+                example: '?1'
+            Referrer-Policy:
+              schema:
+                type: string
+                example: no-referrer
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-DNS-Prefetch-Control:
+              schema:
+                type: string
+                example: 'off'
+            X-Download-Options:
+              schema:
+                type: string
+                example: noopen
+            X-Frame-Options:
+              schema:
+                type: string
+                example: SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+              schema:
+                type: string
+                example: none
+            X-XSS-Protection:
+              schema:
+                type: string
+                example: '0'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties: {}
+                  message:
+                    type: string
+                    example: Email Sent
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                New Request:
+                  value:
+                    data: {}
+                    message: Email Sent
+                    success: true
+      security:
+        - bearerAuth: []
+  /user/email/verify/{token}:
+    get:
+      tags:
+        - Authentication
+      summary: Verify Email Token
+      description: Verify Email Token
+      operationId: verifyEmailToken
+      responses:
+        '200':
+          description: Example
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '53'
+            Content-Security-Policy:
+              schema:
+                type: string
+                example: >-
+                  default-src 'self';base-uri 'self';font-src 'self' https:
+                  data:;form-action 'self';frame-ancestors 'self';img-src 'self'
+                  data:;object-src 'none';script-src 'self';script-src-attr
+                  'none';style-src 'self' https:
+                  'unsafe-inline';upgrade-insecure-requests
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Resource-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Date:
+              schema:
+                type: string
+                example: Mon, 20 Jan 2025 11:08:51 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"35-P66KN0WtJfzsvCyt9B2eYnhNiU0"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            Origin-Agent-Cluster:
+              schema:
+                type: string
+                example: '?1'
+            Referrer-Policy:
+              schema:
+                type: string
+                example: no-referrer
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-DNS-Prefetch-Control:
+              schema:
+                type: string
+                example: 'off'
+            X-Download-Options:
+              schema:
+                type: string
+                example: noopen
+            X-Frame-Options:
+              schema:
+                type: string
+                example: SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+              schema:
+                type: string
+                example: none
+            X-XSS-Protection:
+              schema:
+                type: string
+                example: '0'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties: {}
+                  message:
+                    type: string
+                    example: Email Verified
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Example:
+                  value:
+                    data: {}
+                    message: Email Verified
+                    success: true
+      security:
+        - {}
+    parameters:
+      - name: token
+        in: path
+        required: true
+        schema:
+          type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJlbWFpbCI6InNpbmFheW9wb3Bvb2xhQGdtYWlsLmNvbSIsImlhdCI6MTczNzM3MTIzNywiZXhwIjoxNzM3MzcyMTM3fQ.GT8YGnNUf92Aj0j2VO4vv-JnZ5ipiLuP5YI3R5t2A7Q
+  /user/me:
+    get:
+      tags:
+        - Authentication
+      summary: Get User Details
+      description: Get User Details
+      operationId: getUserDetails
+      responses:
+        '200':
+          description: Example
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '524'
+            Content-Security-Policy:
+              schema:
+                type: string
+                example: >-
+                  default-src 'self';base-uri 'self';font-src 'self' https:
+                  data:;form-action 'self';frame-ancestors 'self';img-src 'self'
+                  data:;object-src 'none';script-src 'self';script-src-attr
+                  'none';style-src 'self' https:
+                  'unsafe-inline';upgrade-insecure-requests
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Resource-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Date:
+              schema:
+                type: string
+                example: Mon, 20 Jan 2025 11:14:49 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"20c-QK+vajxULJeNs4KYBm3oJlyMsbk"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            Origin-Agent-Cluster:
+              schema:
+                type: string
+                example: '?1'
+            Referrer-Policy:
+              schema:
+                type: string
+                example: no-referrer
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-DNS-Prefetch-Control:
+              schema:
+                type: string
+                example: 'off'
+            X-Download-Options:
+              schema:
+                type: string
+                example: noopen
+            X-Frame-Options:
+              schema:
+                type: string
+                example: SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+              schema:
+                type: string
+                example: none
+            X-XSS-Protection:
+              schema:
+                type: string
+                example: '0'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      addressLine1:
+                        type: string
+                        example: Birminham
+                      addressLine2:
+                        type: string
+                        example: ''
+                      city:
+                        type: string
+                        example: Birminham
+                      createdAt:
+                        type: string
+                        example: '2025-01-20T09:53:29.066Z'
+                      dateOfBirth:
+                        type: string
+                        example: 10-03-2003
+                      email:
+                        type: string
+                        example: sinaayopopoola@gmail.com
+                      firstName:
+                        type: string
+                        example: Popoola
+                      hasRedeemedReferral:
+                        type: boolean
+                        example: false
+                      id:
+                        type: number
+                        example: 1
+                      isEmailVerified:
+                        type: boolean
+                        example: true
+                      lastName:
+                        type: string
+                        example: Sinaayo
+                      password:
+                        type: string
+                        example: >-
+                          $2b$10$9bHSQ4wUT3kM4Xw6WQsKauqzjCLGG8P1UohaVE9rbhj1xZNPz.e7S
+                      phoneNumber:
+                        type: string
+                        example: '2348129384063'
+                      postalCode:
+                        type: string
+                        example: PO1 AA3
+                      referralCode:
+                        type: string
+                        example: ptboc
+                      updatedAt:
+                        type: string
+                        example: '2025-01-20T11:09:17.342Z'
+                      verified:
+                        type: boolean
+                        example: true
+                  message:
+                    type: string
+                    example: Details Fetched
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Example:
+                  value:
+                    data:
+                      addressLine1: Birminham
+                      addressLine2: ''
+                      city: Birminham
+                      createdAt: '2025-01-20T09:53:29.066Z'
+                      dateOfBirth: 10-03-2003
+                      email: sinaayopopoola@gmail.com
+                      firstName: Popoola
+                      hasRedeemedReferral: false
+                      id: 1
+                      isEmailVerified: true
+                      lastName: Sinaayo
+                      password: >-
+                        $2b$10$9bHSQ4wUT3kM4Xw6WQsKauqzjCLGG8P1UohaVE9rbhj1xZNPz.e7S
+                      phoneNumber: '2348129384063'
+                      postalCode: PO1 AA3
+                      referralCode: ptboc
+                      updatedAt: '2025-01-20T11:09:17.342Z'
+                      verified: true
+                    message: Details Fetched
+                    success: true
       security:
         - bearerAuth: []
 components:
@@ -448,5 +1816,4 @@ components:
       type: http
       scheme: bearer
 tags:
-  - name: Business Authentication
-  - name: Employee Authentication
+  - name: Authentication

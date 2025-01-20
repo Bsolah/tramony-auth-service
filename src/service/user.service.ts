@@ -67,7 +67,7 @@ class UserService {
         otp: generateRandomNumber(6).toString(),
         expiry: otpExpiryDate(10),
       });
-      await sendSms(phoneNumber, otp.otp);
+      // await sendSms(phoneNumber, otp.otp);
       console.log(otp.otp);
       return otp;
     } catch (error) {
@@ -83,6 +83,7 @@ class UserService {
   async verifyUser(phoneNumber: string, otp: string) {
     try {
       const otpDetails = await this.otpRepository.findOtpByPhone(phoneNumber);
+      console.log(otpDetails);
       if (!otpDetails) {
         throw new BadRequest('Invalid OTP');
       }
@@ -241,7 +242,7 @@ class UserService {
       await sendMail(
         user.email!,
         'Email Verification',
-        emailOtpHtml(`http://localhost:3000/email/verify/${token}`),
+        emailOtpHtml(`${config().baseUrl}/email/verify/${token}`),
       );
       return {};
     } catch (error) {
