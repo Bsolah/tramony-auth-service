@@ -1,13 +1,12 @@
-import axios from 'axios';
+import config from '../config';
 import { BadRequest } from '../errors';
+import { addressIoInstance } from '../external/requests';
 import OtpRepository from '../repository/otp.repository';
 import UserRepository from '../repository/user.repository';
 import otpExpiryDate from '../utils/generateOtpExpiry';
 import generateRandomNumber from '../utils/generateRandomNumber';
 import { generateCompletedToken, generateToken } from '../utils/generateToken';
 import { hashPassword } from '../utils/passwordHashing';
-import getAddress from 'getaddress-api';
-import config from '../config';
 
 class UserService {
   private userRepository: UserRepository;
@@ -38,6 +37,7 @@ class UserService {
       console.log(otp);
       return user;
     } catch (error) {
+      console.log(error);
       if (error instanceof BadRequest) {
         throw error;
       } else {
@@ -106,17 +106,17 @@ class UserService {
   async addAddressInformation(
     id: number,
     addressLine1: string,
-    addressLine2: string,
     city: string,
     postalCode: string,
+    addressLine2?: string,
   ) {
     try {
       const user = await this.userRepository.addAddressInformation(
         id,
         addressLine1,
-        addressLine2,
         city,
         postalCode,
+        addressLine2,
       );
       if (!user) {
         throw new BadRequest('Invalid User');
@@ -172,10 +172,12 @@ class UserService {
 
   async getPostCodeId(postalCode: string) {
     try {
-      const api = new getAddress(config().addressIoKey);
-      const autocompleteResult = await api.autocomplete(postalCode);
-      return autocompleteResult;
+      const autocompleteResult = await addressIoInstance.get(
+        `/autocomplete/${postalCode}?api-key=${config().addressIoKey}`,
+      );
+      return autocompleteResult.data;
     } catch (error) {
+      console.log(error);
       throw new BadRequest(
         'Error occured while getting postal code information',
       );
@@ -183,9 +185,10 @@ class UserService {
   }
   async getPostCodeDetails(id: string) {
     try {
-      const api = new getAddress(config().addressIoKey);
-      const details = await api.get(id);
-      return details;
+      const details = await addressIoInstance.get(
+        `/get/${id}?api-key=${config().addressIoKey}`,
+      );
+      return details.data;
     } catch (error) {
       throw new BadRequest(
         'Error occured while getting postal code information',

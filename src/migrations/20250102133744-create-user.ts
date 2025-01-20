@@ -11,7 +11,7 @@ module.exports = {
       },
       email: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         unique: true,
       },
       phoneNumber: {
@@ -64,6 +64,11 @@ module.exports = {
       password: {
         type: DataTypes.STRING,
         allowNull: true,
+      },
+      hasRedeemedReferral: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
       updatedAt: {
         type: DataTypes.DATE,

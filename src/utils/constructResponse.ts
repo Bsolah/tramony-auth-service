@@ -1,6 +1,6 @@
-const constructResponse = (status: number, message: string, data: any) => {
+const constructResponse = (success: boolean, message: string, data: any) => {
   return {
-    status,
+    success,
     message,
     data,
   };

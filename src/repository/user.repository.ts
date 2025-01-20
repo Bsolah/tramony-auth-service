@@ -38,9 +38,9 @@ class UserRepository {
   async addAddressInformation(
     id: number,
     addressLine1: string,
-    addressLine2: string,
     city: string,
     postalCode: string,
+    addressLine2?: string,
   ) {
     const [affectedRowsCount, [updatedRecord]] = await User.update(
       { addressLine1, addressLine2, city, postalCode },
