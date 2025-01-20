@@ -9,6 +9,7 @@ const config: () => Iconfig = () => {
   const DB_USER = process.env.DB_USER;
   const DB_PASSWORD = process.env.DB_PASSWORD;
   const DB_NAME = process.env.DB_NAME;
+  const ADDRESS_IO_KEY = process.env.ADDRESS_IO_KEY;
 
   if (!PORT) {
     throw new Error('PORT must be provided');
@@ -25,12 +26,16 @@ const config: () => Iconfig = () => {
   if (!DB_NAME) {
     throw new Error('DB_NAME must be provided');
   }
+  if (!ADDRESS_IO_KEY) {
+    throw new Error('ADDRESS_IO_KEY must be provided');
+  }
   return {
     port: parseInt(PORT),
     dbHost: DB_HOST,
     dbPassword: DB_PASSWORD,
     dbUser: DB_USER,
     dbName: DB_NAME,
+    addressIoKey: ADDRESS_IO_KEY,
   };
 };
 

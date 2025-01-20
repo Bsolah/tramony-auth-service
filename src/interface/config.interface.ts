@@ -4,6 +4,7 @@ interface Iconfig {
     dbUser: string;
     dbPassword: string;
     dbName: string;
+    addressIoKey: string;
 }
 
 export default Iconfig;

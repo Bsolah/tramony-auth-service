@@ -7,6 +7,7 @@ import generateRandomNumber from '../utils/generateRandomNumber';
 import { generateCompletedToken, generateToken } from '../utils/generateToken';
 import { hashPassword } from '../utils/passwordHashing';
 import getAddress from 'getaddress-api';
+import config from '../config';
 
 class UserService {
   private userRepository: UserRepository;
@@ -171,7 +172,7 @@ class UserService {
 
   async getPostCodeId(postalCode: string) {
     try {
-      const api = new getAddress('');
+      const api = new getAddress(config().addressIoKey);
       const autocompleteResult = await api.autocomplete(postalCode);
       return autocompleteResult;
     } catch (error) {
@@ -182,7 +183,7 @@ class UserService {
   }
   async getPostCodeDetails(id: string) {
     try {
-      const api = new getAddress('');
+      const api = new getAddress(config().addressIoKey);
       const details = await api.get(id);
       return details;
     } catch (error) {
