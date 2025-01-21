@@ -239,9 +239,8 @@ class UserService {
       }
       if (email) {
         const token = generateEmailVerificationToken(id.toString(), email);
-        console.log(token);
         await sendMail(
-          user.email!,
+          email!,
           'Email Verification',
           emailOtpHtml(`${config().baseUrl}/email/verify/${token}`),
         );
@@ -251,7 +250,6 @@ class UserService {
           id.toString(),
           user.email!,
         );
-        console.log(token);
         await sendMail(
           user.email!,
           'Email Verification',

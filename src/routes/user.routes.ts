@@ -28,7 +28,7 @@ router.get(
   authenticateUser,
   getPostCodeDetails,
 );
-router.get(
+router.post(
   '/email/verification/generate',
   authenticateUser,
   getVerificationEmail,
