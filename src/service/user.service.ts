@@ -231,20 +231,34 @@ class UserService {
     }
   }
 
-  async getEmailVerificationToken(id: number) {
+  async getEmailVerificationToken(id: number, email: string) {
     try {
       const user = await this.userRepository.getUserById(id);
       if (!user) {
         throw new BadRequest('Invalid User');
       }
-      const token = generateEmailVerificationToken(id.toString(), user.email!);
-      console.log(token);
-      await sendMail(
-        user.email!,
-        'Email Verification',
-        emailOtpHtml(`${config().baseUrl}/email/verify/${token}`),
-      );
-      return {};
+      if (email) {
+        const token = generateEmailVerificationToken(id.toString(), email);
+        console.log(token);
+        await sendMail(
+          user.email!,
+          'Email Verification',
+          emailOtpHtml(`${config().baseUrl}/email/verify/${token}`),
+        );
+        return {};
+      } else {
+        const token = generateEmailVerificationToken(
+          id.toString(),
+          user.email!,
+        );
+        console.log(token);
+        await sendMail(
+          user.email!,
+          'Email Verification',
+          emailOtpHtml(`${config().baseUrl}/email/verify/${token}`),
+        );
+        return {};
+      }
     } catch (error) {
       console.log(error);
       if (error instanceof BadRequest) {
@@ -266,8 +280,11 @@ class UserService {
       const user = await this.userRepository.getUserById(
         Number(decodedToken.id),
       );
-      if (user && user.email === decodedToken.email) {
-        await this.userRepository.verifyEmail(Number(decodedToken.id));
+      if (user) {
+        await this.userRepository.verifyEmail(
+          Number(decodedToken.id),
+          decodedToken.email,
+        );
         return {};
       } else {
         throw new BadRequest('Error verifying user, please try again');

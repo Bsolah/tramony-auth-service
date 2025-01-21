@@ -181,8 +181,9 @@ export const getVerificationEmail = async(
     next: NextFunction
 ) => {
     try {
-        const id = req.user.id;
-        const user = await userService.getEmailVerificationToken(Number(id))
+      const id = req.user.id;
+      const email = req.body.email;
+        const user = await userService.getEmailVerificationToken(Number(id), email)
         res.status(200).json(constructResponse(true, 'Email Sent', user))
     } catch (error) {
         next(error)

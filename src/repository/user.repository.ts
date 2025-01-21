@@ -65,8 +65,8 @@ class UserRepository {
     }
   }
 
-  async verifyEmail(id: number) {
-    return User.update({ isEmailVerified: true }, { where: { id } });
+  async verifyEmail(id: number, email: string) {
+    return User.update({ isEmailVerified: true, email }, { where: { id } });
   }
 
   async getUserById(id: number) {
