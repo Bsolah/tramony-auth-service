@@ -1,4 +1,5 @@
 import { QueryInterface, DataTypes } from 'sequelize';
+import { UNVERIFIED } from '../utils/constants';
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -69,6 +70,15 @@ module.exports = {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
+      },
+      sumSubId: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      verificationStatus: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: UNVERIFIED,
       },
       updatedAt: {
         type: DataTypes.DATE,

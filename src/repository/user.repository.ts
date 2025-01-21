@@ -86,6 +86,17 @@ class UserRepository {
       return updatedRecord;
     }
   }
+
+  updateVerificationStatus(
+    id: number,
+    verificationStatus: 'VERIFIED' | 'UNVERIFIED' | 'PENDING',
+  ) {
+    return User.update({ verificationStatus }, { where: { id } });
+  }
+
+  async getUserBySumSubId(sumSubId: string) {
+    return User.findOne({ where: { sumSubId } });
+  }
 }
 
 export default UserRepository;

@@ -6,6 +6,7 @@ import {
   DataTypes,
   CreationOptional,
 } from 'sequelize';
+import { UNVERIFIED } from '../utils/constants';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<Number>;
@@ -20,10 +21,11 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare addressLine2?: string;
   declare city?: string;
   declare postalCode?: string;
-
+  declare sumSubId?: string;
   declare referralCode: string;
   hasRedeemedReferral?: boolean;
   declare password?: string;
+  declare verificationStatus?: string;
   declare updatedAt: CreationOptional<Date>;
   declare createdAt: CreationOptional<Date>;
 }
@@ -90,6 +92,15 @@ User.init(
     password: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    sumSubId: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    verificationStatus: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: UNVERIFIED,
     },
     hasRedeemedReferral: {
       type: DataTypes.BOOLEAN,

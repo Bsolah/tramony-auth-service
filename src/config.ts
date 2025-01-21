@@ -13,6 +13,8 @@ const config: () => Iconfig = () => {
   const ADDRESS_IO_BASE_URL = process.env.ADDRESS_IO_BASE_URL;
   const JWT_SECRET = process.env.JWT_SECRET;
   const BASE_URL = process.env.BASE_URL;
+  const SUMSUB_API_KEY = process.env.SUMSUB_API_KEY;
+  const SUMSUB_BASE_URL = process.env.SUMSUB_BASE_URL;
   if (!PORT) {
     throw new Error('PORT must be provided');
   }
@@ -40,6 +42,12 @@ const config: () => Iconfig = () => {
   if (!BASE_URL) {
     throw new Error('BASE_URL must be provided');
   }
+  if (!SUMSUB_API_KEY) {
+    throw new Error('SUMSUB_API_KEY must be provided');
+  }
+  if (!SUMSUB_BASE_URL) {
+    throw new Error('SUMSUB_BASE_URL must be provided');
+  }
   return {
     port: parseInt(PORT),
     dbHost: DB_HOST,
@@ -50,6 +58,8 @@ const config: () => Iconfig = () => {
     addressIoBaseUrl: ADDRESS_IO_BASE_URL,
     jwtSecret: JWT_SECRET,
     baseUrl: BASE_URL,
+    sumsubApiKey: SUMSUB_API_KEY,
+    sumsubBaseUrl: SUMSUB_BASE_URL,
   };
 };
 

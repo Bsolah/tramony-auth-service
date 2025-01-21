@@ -8,6 +8,8 @@ interface Iconfig {
   addressIoBaseUrl: string;
   jwtSecret: string;
   baseUrl: string;
+  sumsubApiKey: string;
+  sumsubBaseUrl: string;
 }
 
 export default Iconfig;
