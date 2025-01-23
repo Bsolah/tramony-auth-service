@@ -1404,12 +1404,25 @@ paths:
           type: string
           example: YTk1MWM1YjQzMGFlYzNhIDEwNjc3MzY1MDI0IDBjMWE1NjNkNWJhMzVjNQ==
   /user/email/verification/generate:
-    get:
+    post:
       tags:
         - Authentication
       summary: Get Email Verification
       description: Get Email Verification
       operationId: getEmailVerification
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: olusegunpopoola4real@gmail.com
+            examples:
+              Get Email Verification:
+                value:
+                  email: olusegunpopoola4real@gmail.com
       responses:
         '200':
           description: New Request
