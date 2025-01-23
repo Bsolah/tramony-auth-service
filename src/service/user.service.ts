@@ -242,7 +242,7 @@ class UserService {
         await sendMail(
           email!,
           'Email Verification',
-          emailOtpHtml(`${config().baseUrl}/email/verify/${token}`),
+          emailOtpHtml(`${config().baseUrl}/user/email/verify/${token}`),
         );
         return {};
       } else {
