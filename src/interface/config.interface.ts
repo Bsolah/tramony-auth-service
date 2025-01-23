@@ -10,6 +10,7 @@ interface Iconfig {
   baseUrl: string;
   sumsubApiKey: string;
   sumsubBaseUrl: string;
+  sumsubSecretKey: string;
 }
 
 export default Iconfig;

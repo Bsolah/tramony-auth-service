@@ -137,9 +137,7 @@ class VerificationService {
 
   async webhookVerification(body: any) {
     try {
-      const user = await this.userRepository.getUserBySumSubId(
-        body.applicantId,
-      );
+      const user = await this.userRepository.getUserById(body.externalUserId);
       if (!user) {
         throw new BadRequest('User not found');
       }
