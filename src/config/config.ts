@@ -7,14 +7,14 @@ const config = {
     database: appConfig().dbName,
     host: appConfig().dbHost,
     dialect: 'postgres',
-    // ssl: true,
-    // dialectOptions: {
-    //         ssl: {
-    //             require: true,
-    //             rejectUnauthorized: false,
-    //         },
-    //         native: true
-    //     },
+    ssl: true,
+    dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false,
+            },
+            native: true
+        },
   },
   test: {
     username: appConfig().dbUser,
