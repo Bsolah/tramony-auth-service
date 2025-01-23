@@ -5,6 +5,7 @@ import {
   validateAddressInformation,
   validateBasicInformation,
   validatePhoneNumber,
+  validatePhoneNumberLogin,
   validateRedeemReferralCode,
   validateUserPhoneNumberOtp,
 } from '../validators/user.validator';
@@ -142,7 +143,6 @@ export const getPostCodeId = async (
 ) => {
   try {
     const postalCode = req.params.postalCode;
-    console.log(postalCode);
     const postalCodeId = await userService.getPostCodeId(postalCode);
     res
       .status(200)
@@ -175,39 +175,66 @@ export const getPostCodeDetails = async (
   }
 };
 
-export const getVerificationEmail = async(
-    req: Request,
-    res: Response,
-    next: NextFunction
+export const getVerificationEmail = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
 ) => {
-    try {
-      const id = req.user.id;
-      const email = req.body.email;
-        const user = await userService.getEmailVerificationToken(Number(id), email)
-        res.status(200).json(constructResponse(true, 'Email Sent', user))
-    } catch (error) {
-        next(error)
-    }
-}
+  try {
+    const id = req.user.id;
+    const email = req.body.email;
+    const user = await userService.getEmailVerificationToken(Number(id), email);
+    res.status(200).json(constructResponse(true, 'Email Sent', user));
+  } catch (error) {
+    next(error);
+  }
+};
 
-export const verifyUserEmail = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const token = req.params.token
-        const user = await userService.verifyEmailToken(token)
-        res.status(200).json(constructResponse(true, "Email Verified", user))
-    } catch (error) {
-       next(error) 
-    }
-}
+export const verifyUserEmail = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const token = req.params.token;
+    const user = await userService.verifyEmailToken(token);
+    res.status(200).json(constructResponse(true, 'Email Verified', user));
+  } catch (error) {
+    next(error);
+  }
+};
 
-export const getDetails = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const id = req.user.id
-        const user = await userService.getUserDetails(id)
-        res.status(200).json(constructResponse(true, "Details Fetched", user))
-    } catch (error) {
-        next(error)
-    }
-}
+export const getDetails = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const id = req.user.id;
+    const user = await userService.getUserDetails(id);
+    res.status(200).json(constructResponse(true, 'Details Fetched', user));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const loginUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const validatedBody = await validatePhoneNumberLogin.validateAsync(
+      req.body,
+    );
+    const user = await userService.loginByPhone(
+      validatedBody.phoneNumber,
+      validatedBody.password,
+    );
+    res.status(200).json(constructResponse(true, 'Login Successful', user));
+  } catch (error) {
+    next(error);
+  }
+};
 
 // export const

@@ -13,7 +13,6 @@ const sendMail = async (to: string, subject: string, html: string) => {
   };
 
   try {
-    console.log(process.env.SENDGRID_API_KEY);
     await sgMail.send(msg);
   } catch (error) {
     console.log(error);
