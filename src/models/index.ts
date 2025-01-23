@@ -10,13 +10,13 @@ const sequelizeInstance = new Sequelize({
   username: config().dbUser,
   database: config().dbName,
   logging: false,
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-    native: true,
-  },
+  // dialectOptions: {
+  //   ssl: {
+  //     require: true,
+  //     rejectUnauthorized: false,
+  //   },
+  //   native: true,
+  // },
 });
 
 export default sequelizeInstance;
