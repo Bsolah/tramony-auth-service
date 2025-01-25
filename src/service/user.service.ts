@@ -313,6 +313,7 @@ class UserService {
       });
       return { otp };
     } catch (error) {
+      console.log(error);
       if (error instanceof BadRequest) {
         throw error;
       } else {

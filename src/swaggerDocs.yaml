@@ -49,7 +49,7 @@ paths:
                   example: '939060'
                 phoneNumber:
                   type: string
-                  example: '+2348129384063'
+                  example: '2348129384063'
             examples:
               Verify User:
                 value:
@@ -1981,6 +1981,18 @@ paths:
                         updatedAt: '2025-01-23T11:42:09.259Z'
                     message: Login Successful
                     success: true
+  /verification/token:
+    get:
+      tags:
+        - Verification
+      summary: Get SDK Token
+      description: Get SDK Token
+      operationId: getSdkToken
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
 components:
   securitySchemes:
     bearerAuth:
@@ -1988,3 +2000,4 @@ components:
       scheme: bearer
 tags:
   - name: Authentication
+  - name: Verification
