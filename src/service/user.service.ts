@@ -95,6 +95,7 @@ class UserService {
       if (!user) {
         throw new BadRequest('Invalid Phone Number');
       }
+      await this.otpRepository.deleteOtpByPhone(phoneNumber);
       const token = generateCompletedToken(user.id.toString(), phoneNumber);
       return { user, token };
     } catch (error) {
