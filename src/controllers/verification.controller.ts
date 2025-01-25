@@ -11,9 +11,7 @@ export const startVerification = async (
   next: NextFunction,
 ) => {
   try {
-    const response = await verificationService.createSumSubApplication(
-      req.user.id,
-    );
+    const response = await verificationService.getTokenFromSumSub(req.user.id);
     res.status(200).json(response);
   } catch (error) {
     next(error);

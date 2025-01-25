@@ -137,6 +137,7 @@ class VerificationService {
 
   async webhookVerification(body: any) {
     try {
+      console.log(body);
       const user = await this.userRepository.getUserById(body.externalUserId);
       if (!user) {
         throw new BadRequest('User not found');
@@ -158,6 +159,31 @@ class VerificationService {
           VERIFIED,
         );
       }
+    } catch (error: any) {
+      console.log(error);
+      if (error instanceof BadRequest) {
+        throw error;
+      } else {
+        throw new BadRequest(
+          error.response.data.message ||
+            'Error occured while starting verification process',
+        );
+      }
+    }
+  }
+
+  async getTokenFromSumSub(userId: string) {
+    try {
+      const response = await sumsubInstance.post(
+        '/resources/accessTokens/sdk',
+        {
+          userId: userId,
+          level: 'tramony-verification',
+          ttl: 3600,
+        },
+      );
+      console.log(response.data);
+      return response.data;
     } catch (error: any) {
       console.log(error);
       if (error instanceof BadRequest) {

@@ -11,7 +11,7 @@ import { authenticateUser } from '../middlewares/authenticationMiddleware';
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
-router.post('/start', authenticateUser, startVerification);
+router.get('/token', authenticateUser, startVerification);
 router.post(
   '/submit-document',
   authenticateUser,
