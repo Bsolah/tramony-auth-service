@@ -10,7 +10,7 @@ import {
   generateEmailVerificationToken,
 } from '../utils/generateToken';
 import sendMail from '../utils/mail';
-import { hashPassword } from '../utils/passwordHashing';
+import { comparePassword, hashPassword } from '../utils/passwordHashing';
 import jwt from 'jsonwebtoken';
 import { emailOtpHtml } from '../views/sendOtpEmail';
 import sendSms from '../utils/sms';
@@ -48,13 +48,12 @@ class UserService {
       const getUserUnverified =
         await this.userRepository.getUnverifiedUserByPhoneNumber(phoneNumber);
       if (getUserUnverified) {
+        await this.otpRepository.deleteOtpByPhone(phoneNumber);
         const otp = await this.otpRepository.createOtp({
           phone: phoneNumber,
           otp: generateRandomNumber(6).toString(),
           expiry: otpExpiryDate(10),
         });
-        console.log(phoneNumber);
-        console.log(otp.otp);
         // await sendSms(otp.otp, phoneNumber);
         return otp;
       }
@@ -68,7 +67,6 @@ class UserService {
         expiry: otpExpiryDate(10),
       });
       // await sendSms(phoneNumber, otp.otp);
-      console.log(otp.otp);
       return otp;
     } catch (error) {
       console.log(error);
@@ -83,12 +81,10 @@ class UserService {
   async verifyUser(phoneNumber: string, otp: string) {
     try {
       const otpDetails = await this.otpRepository.findOtpByPhone(phoneNumber);
-      console.log(otpDetails);
       if (!otpDetails) {
         throw new BadRequest('Invalid OTP');
       }
       if (otpDetails.otp !== otp) {
-        await this.otpRepository.deleteOtpByPhone(phoneNumber);
         throw new BadRequest('Invalid OTP');
       }
       if (new Date(otpDetails?.expiry) < new Date()) {
@@ -295,6 +291,37 @@ class UserService {
       }
     }
   }
+
+  async loginByPhone(phoneNumber: string, password: string) {
+    try {
+      const user = await this.userRepository.getUserByPhoneNumber(phoneNumber);
+      if (!user) {
+        throw new BadRequest('Invalid Phone Number');
+      }
+      if (!user.verified) {
+        throw new BadRequest('Phone Number not verified');
+      }
+      const passwordMatch = await comparePassword(password, user.password!);
+      if (!passwordMatch) {
+        throw new BadRequest('Invalid Password');
+      }
+      await this.otpRepository.deleteOtpByPhone(phoneNumber);
+      const otp = await this.otpRepository.createOtp({
+        phone: phoneNumber,
+        otp: generateRandomNumber(6).toString(),
+        expiry: otpExpiryDate(10),
+      });
+      return { otp };
+    } catch (error) {
+      if (error instanceof BadRequest) {
+        throw error;
+      } else {
+        throw new BadRequest('Error occured while logging in');
+      }
+    }
+  }
+
+  // async forgotPassword(phoneNumber: string) { }
 }
 
 export default UserService;

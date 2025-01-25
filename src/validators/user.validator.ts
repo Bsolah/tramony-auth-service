@@ -7,6 +7,17 @@ export const validatePhoneNumber = Joi.object({
   }),
 });
 
+export const validatePhoneNumberLogin = Joi.object({
+  phoneNumber: Joi.string().required().messages({
+    'string.empty': 'Phone number is required',
+    'any.required': 'Phone number is required',
+  }),
+  password: Joi.string().required().messages({
+    'string.empty': 'Password is required',
+    'any.required': 'Password is required',
+  }),
+});
+
 export const validateUserPhoneNumberOtp = Joi.object({
   otp: Joi.string().required().messages({
     'string.empty': 'OTP is required',

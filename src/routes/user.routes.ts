@@ -7,6 +7,7 @@ import {
   getPostCodeDetails,
   getPostCodeId,
   getVerificationEmail,
+  loginUser,
   redeemReferralCode,
   registerUser,
   verifyUserEmail,
@@ -33,7 +34,7 @@ router.post(
   authenticateUser,
   getVerificationEmail,
 );
-
+router.post('/login', loginUser);
 router.get('/email/verify/:token', verifyUserEmail);
 router.get('/me', authenticateUser, getDetails);
 

@@ -49,12 +49,12 @@ paths:
                   example: '939060'
                 phoneNumber:
                   type: string
-                  example: '2348129384063'
+                  example: '+2348129384063'
             examples:
               Verify User:
                 value:
                   otp: '939060'
-                  phoneNumber: '2348129384063'
+                  phoneNumber: '+2348129384063'
       responses:
         '200':
           description: Example
@@ -1824,6 +1824,163 @@ paths:
                     success: true
       security:
         - bearerAuth: []
+  /user/login:
+    post:
+      tags:
+        - Authentication
+      summary: Login User
+      description: Login User
+      operationId: loginUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  example: Prayer1020!
+                phoneNumber:
+                  type: string
+                  example: '+2348161628933'
+            examples:
+              Login User:
+                value:
+                  password: Prayer1020!
+                  phoneNumber: '+2348161628933'
+      responses:
+        '200':
+          description: Example
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '237'
+            Content-Security-Policy:
+              schema:
+                type: string
+                example: >-
+                  default-src 'self';base-uri 'self';font-src 'self' https:
+                  data:;form-action 'self';frame-ancestors 'self';img-src 'self'
+                  data:;object-src 'none';script-src 'self';script-src-attr
+                  'none';style-src 'self' https:
+                  'unsafe-inline';upgrade-insecure-requests
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Resource-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Date:
+              schema:
+                type: string
+                example: Thu, 23 Jan 2025 11:42:09 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"ed-0CdODF/sZEKKoQfg9tomS0aVhYo"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            Origin-Agent-Cluster:
+              schema:
+                type: string
+                example: '?1'
+            Referrer-Policy:
+              schema:
+                type: string
+                example: no-referrer
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-DNS-Prefetch-Control:
+              schema:
+                type: string
+                example: 'off'
+            X-Download-Options:
+              schema:
+                type: string
+                example: noopen
+            X-Frame-Options:
+              schema:
+                type: string
+                example: SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+              schema:
+                type: string
+                example: none
+            X-XSS-Protection:
+              schema:
+                type: string
+                example: '0'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      otp:
+                        type: object
+                        properties:
+                          createdAt:
+                            type: string
+                            example: '2025-01-23T11:42:09.259Z'
+                          email:
+                            nullable: true
+                            example: null
+                          expiry:
+                            type: string
+                            example: '2025-01-23T11:52:09.258Z'
+                          id:
+                            type: number
+                            example: 10
+                          otp:
+                            type: string
+                            example: '510812'
+                          phone:
+                            type: string
+                            example: '+2348161628933'
+                          updatedAt:
+                            type: string
+                            example: '2025-01-23T11:42:09.259Z'
+                  message:
+                    type: string
+                    example: Login Successful
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Example:
+                  value:
+                    data:
+                      otp:
+                        createdAt: '2025-01-23T11:42:09.259Z'
+                        email: null
+                        expiry: '2025-01-23T11:52:09.258Z'
+                        id: 10
+                        otp: '510812'
+                        phone: '+2348161628933'
+                        updatedAt: '2025-01-23T11:42:09.259Z'
+                    message: Login Successful
+                    success: true
 components:
   securitySchemes:
     bearerAuth:
