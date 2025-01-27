@@ -11,6 +11,7 @@ interface Iconfig {
   sumsubApiKey: string;
   sumsubBaseUrl: string;
   sumsubSecretKey: string;
+  clearBankBaseUrl: string;
 }
 
 export default Iconfig;

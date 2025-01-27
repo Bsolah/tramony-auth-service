@@ -7,6 +7,7 @@ import {
   CreationOptional,
 } from 'sequelize';
 import { UNVERIFIED } from '../utils/constants';
+import Balance from './balance.model';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<Number>;
@@ -123,4 +124,7 @@ User.init(
   },
 );
 
+User.hasOne(Balance, {
+  foreignKey: 'userId',
+});
 export default User;

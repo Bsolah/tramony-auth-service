@@ -1,3 +1,4 @@
+import Balance from '../models/balance.model';
 import User from '../models/user';
 
 class UserRepository {
@@ -70,7 +71,7 @@ class UserRepository {
   }
 
   async getUserById(id: number) {
-    return User.findOne({ where: { id } });
+    return User.findOne({ where: { id }, include: Balance });
   }
 
   async getUserByReferralCode(referralCode: string) {

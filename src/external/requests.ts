@@ -18,3 +18,8 @@ export const sumsubInstance = axios.create({
 sumsubInstance.interceptors.request.use(createSignature, function (error) {
   return Promise.reject(error);
 });
+
+
+export const clearBankInstance = axios.create({
+  baseURL: config().clearBankBaseUrl,
+})

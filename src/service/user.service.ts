@@ -14,6 +14,9 @@ import { comparePassword, hashPassword } from '../utils/passwordHashing';
 import jwt from 'jsonwebtoken';
 import { emailOtpHtml } from '../views/sendOtpEmail';
 import sendSms from '../utils/sms';
+import BalanceService from './balance.service';
+
+const balanceService = new BalanceService();
 
 class UserService {
   private userRepository: UserRepository;
@@ -96,6 +99,7 @@ class UserService {
         throw new BadRequest('Invalid Phone Number');
       }
       await this.otpRepository.deleteOtpByPhone(phoneNumber);
+      await balanceService.createUserBalance(user.id.toString());
       const token = generateCompletedToken(user.id.toString(), phoneNumber);
       return { user, token };
     } catch (error) {
